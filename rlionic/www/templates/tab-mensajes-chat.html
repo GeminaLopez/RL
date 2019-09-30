@@ -1,0 +1,30 @@
+<ion-view title="Chat">
+	<ion-content class="padding">
+		<h2>Chat</h2>
+		<div class="list card" ng-repeat="mensaje in mensajes" > 
+			<div class="item item-avatar">
+				<img alt="Foto de Perfil de {{mensaje.nombre}}" ng-src="{{api_server+mensaje.avatar}}"/>
+				<h3>{{ mensaje.nombre }}</h3>
+				<span class="fechaDeEnvio">Enviado: {{mensaje.fecha}}</span> 
+				<p>{{mensaje.mensaje}}</p>
+			</div>
+		</div>
+		<div ng-if="errores">
+			<ul class="errores"> 
+				<li>Por favor revisá:</li>
+				<li ng-repeat="(key,val) in errores">
+						{{ key }}: {{val}}
+				</li>
+			</ul>
+		</div>
+		<form ng-submit="grabar(mensaje)">
+			<div class="list">
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Mensaje:</span>
+					<textarea id="mensaje" placeholder="Escribí aquí el mensaje que queres enviar" ng-model="mensaje.texto"></textarea>
+				</label>
+			</div>
+			<button class="button button-block button-positive">Enviar mensaje</button>
+		</form>
+	</ion-content>	
+</ion-view>

@@ -1,0 +1,43 @@
+<ion-view title="Editar mis datos">
+	<ion-content class="padding">
+		<div ng-if="errores">
+			<ul class="errores"> 
+				<li>Por favor revisá estos campos:</li>
+				<li ng-repeat="(key,val) in errores">
+						{{ key }}: {{val}}
+				</li>
+			</ul>
+		</div>
+		<div>
+			<form ng-submit="editar(user)">
+				<div class="list">
+					<label class="item item-input item-stacked-label">
+						<span class="input-label">Nombre:</span>
+						<input type="text" ng-model="user.nombre">
+					</label>
+					<label class="item item-input item-stacked-label">
+						<span class="input-label">Apellido:</span>
+						<input type="text" ng-model="user.apellido">
+						</label>
+					<label class="item item-input item-select">
+						<div class="input-label">
+							Ciudad
+						</div>
+						<select ng-options="ciudad.id as ciudad.ciudad for ciudad in ciudades" ng-model="user.fkciudad">
+						</select>
+					</label>
+					<label class="item item-input item-stacked-label">
+						<span class="input-label">Email:</span>
+						<input type="text" ng-model="user.email">
+					</label>
+					<label class="item item-input item-stacked-label">
+						<span class="input-label avatar">Avatar: </span>
+						<img alt="Foto de Perfil" ng-src="{{api_server+user.avatar}}" />
+						<input type="file" id="avatar" ng-model="user.avatar">						
+					</label>
+				</div>
+				<button class="button button-block button-positive">Guardar</button>
+			</form>
+		</div>
+	</ion-content>
+</ion-view>

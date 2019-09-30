@@ -1,0 +1,19 @@
+<ion-view title="Perfil">
+	<ion-nav-buttons side="secondary">
+		<a class="button" href="#/tab/contactos" id="logout">Ver/Editar amigos</a>
+		<a class="button" href="#" ng-click="logout()">Cerrar Sesión</a>
+	</ion-nav-buttons>
+	<ion-content>
+		<ion-list>
+			<ion-item><b>Nombreeee:</b> {{ user.nombre }}</ion-item>
+			<ion-item><b>Apellido:</b> {{ user.apellido }}</ion-item>
+			<ion-item><b>Ciudad:</b> {{ user.id_ciudad }}</ion-item>
+			<ion-item><b>E-mail:</b> {{ user.email }}</ion-item>
+			<!--<ion-item><b>Avatar:</b> <img alt="Foto de Perfil de {{user.nombre}} {{user.apellido}}" ng-src="{{api_server+user.avatar}}" /></ion-item>-->
+		</ion-list>
+		<ul class="list">
+			<li><a class="button button-block button-positive" href="#/tab/perfil/editar/password">Editar password</a></li>
+			<li><a class="button button-block button-positive" href="#/tab/perfil/editar">Editar mis datos</a></li>
+		</ul>
+	</ion-content>	
+</ion-view>

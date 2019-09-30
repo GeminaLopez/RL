@@ -1,0 +1,30 @@
+<ion-view view-title="Home">
+	<ion-nav-buttons side="primary">
+		<a class="button" href="#/tab/posts/amigos">Post de amigos</a>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="secondary">
+		<a class="button" href="#/tab/posts/nuevo">Nuevo post</a>
+	</ion-nav-buttons>
+  	<ion-content class="padding">
+		<h2>Muro de publicaciones</h2>
+
+		<div class="list card" ng-repeat="post in posts">
+
+			<div class="item item-avatar">
+			<img alt="Foto de Perfil de {{post.fkUsuarios}}" ng-src="{{api_server+post.avatar}}"/>
+			<h2>{{post.fkUsuarios}}</h2>
+			<p>{{post.fecha_publicacion}}</p>
+			</div>
+		
+			<div class="item item-body">
+			<p>{{post.titulo}} - {{post.texto}}
+			</p>
+			<p>
+				<a href="#/tab/comentarios/{{post.id}}" class="subdued">Ver Comentarios</a>
+				<a href="#/tab/comentarios/nuevo/{{post.id}}" class="subdued">Comentar</a>
+			</p>
+			</div>
+		
+		</div>
+  	</ion-content>
+</ion-view>
