@@ -62,12 +62,12 @@ angular.module('RedLight.controllers')
 
 			function registro(user){
 				Auth.registro(user).then(function(respuesta){
-					if(respuesta.status == 1 ){
+					if(respuesta.success){
 						$ionicPopup.alert({
 							title: 'Éxito',
-							template: 'Bienvenido/a! Disfrutá del Encuentro Nacional de Mujeres'
+							template: 'Bienvenido/a! Disfrutá de Red Light!!'
 						}).then(function() {
-							$state.go('tab.talleres');
+							$state.go('tab.login');
 						});
 					} else {
 				        $scope.errores = respuesta.errores;

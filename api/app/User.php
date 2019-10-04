@@ -16,7 +16,7 @@ class User extends Authenticatable
     /** @var string La PK. */
     protected $primaryKey = 'id_user';
 
-    protected $dateFormat = 'U';
+    protected $dates = ['fecha_nac',];
 
     /**
      * The attributes that are mass assignable.
@@ -57,7 +57,7 @@ class User extends Authenticatable
     public static $rules = [
         'nombre' => 'required|min:3',
         'apellido' => 'required|min:3',
-        'email' => 'required|email',
+        'email' => 'required|email|unique:users',
         'password' => 'required|min:6',
         'fecha_nac' => 'required',
         'id_ciudad' => 'required|integer|exists:ciudades',
@@ -68,7 +68,7 @@ class User extends Authenticatable
     public static $rulesEdicion = [
         'nombre' => 'required|min:3',
         'apellido' => 'required|min:3',
-        'email' => 'required|email',
+        'email' => 'required|email|unique:users',
         'fecha_nac' => 'required',
         'id_ciudad' => 'required|integer|exists:ciudades',
         'id_genero' => 'required|integer|exists:generos'

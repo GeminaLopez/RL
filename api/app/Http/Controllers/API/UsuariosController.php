@@ -27,13 +27,8 @@ class UsuariosController extends Controller
     {
         $input = $request->input();
         $request->validate(User::$rules, User::$errorMessages);
-        var_dump($input['fecha_nac']);
-        die();
 
-        $input['fecha_nac']= Carbon::createFromFormat('Y-m-d', $input['fecha_nac']);
-
-        var_dump($input['fecha_nac']);
-        die();
+        $input['fecha_nac'] = Carbon::parse($request->fecha_nac);//->format('Y-m-d');
 
         // Chequeamos si hay una imagen avatar.
         if($request->hasFile('avatar')) {
