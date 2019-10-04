@@ -6,36 +6,62 @@ angular.module('RedLight.controllers')
 	'$ionicPopup',
 	'Usuario',
 	'Ciudad',
+	'Genero',
 	'API_SERVER',
-	function($scope,$state,$ionicPopup, Usuario, Ciudad,API_SERVER) {
+	'Auth',
+	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, API_SERVER, Auth) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
-			fkciudad: null,
+			id_ciudad: null,
+			id_genero: null,
 			email: null,
 			avatar: null,
 		};
 
 		$scope.api_server = API_SERVER+'/';
 
-		Usuario.getLoggedUser().then(function(response) {
-			let responsePayload = response.data;
-			if(responsePayload.status == 1) {
-				$scope.user = {
-					nombre: responsePayload.data.nombre,
-					apellido: responsePayload.data.apellido,
-					fkciudad: responsePayload.data.fkciudad,
-					email: responsePayload.data.email,
-					avatar: responsePayload.data.avatar,
+		// Justo de antes de entrar a la vista, le pedimos que traiga los datos del usuario.
+		$scope.$on('$ionicView.beforeEnter', function() {
+			Auth.getUser().then(function(response) {
+				if(response.id_user !== null) {
+					Ciudad.traerCiudadPorID(response.id_ciudad).then(function(resp){
+						console.log(resp.data.data.id_ciudad);
+						// le asigno la ciudad que se corresponde por el id
+						$scope.user['id_ciudad'] = resp.data.ciudad;
+					});
+					Genero.traerGeneroPorID(response.id_genero).then(function(resp){
+						console.log(resp.data.data.id_genero);
+						// le asigno la ciudad que se corresponde por el id
+						$scope.user['id_genero'] = resp.data.genero;
+					});
+					$scope.user = {
+						id_user: response.id_user,
+						nombre: response.nombre,
+						apellido: response.apellido,
+						email: response.email,
+						avatar: response.avatar,
+					}
 				}
-			}
+				else{
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'No pudimos encontrar sus datos. Por favor, contactate con nosotros.'
+					});
+				}
+			});
 		});
 
 		// busco todas las ciudades para cargar el dropdown
-		Ciudad.todas().then(function(exito){
-			$scope.ciudades = exito.data;
+		Ciudad.todas().then(function(resp){
+			$scope.ciudades = resp.data;
 		});
-	
+
+		// busco todas los generos para cargar el dropdown
+		Genero.todos().then(function(resp){
+			$scope.generos = resp.data;
+		});
+
 		$scope.editar = function(user) {
 
 			let avatar = document.getElementById('avatar');
@@ -59,8 +85,7 @@ angular.module('RedLight.controllers')
 			function editar(user){
 				// Guardo los datos que el usuario editó
 				Usuario.editar(user).then(function(response) {
-					let responseInfo = response.data;
-					if(responseInfo.status == 1) {
+					if(response.success) {
 						$ionicPopup.alert({
 							title: 'Éxito!',
 							template: 'El usuario fue editado con éxito'
@@ -85,10 +110,10 @@ angular.module('RedLight.controllers')
 		};
 
 		$scope.editarPassword = function(user){
+			console.log(user);
 			// Guardo la password nueva del usuario
 			Usuario.editarPassword(user).then(function(response) {
-				let responseInfo = response.data;
-				if(responseInfo.status == 1) {
+				if(response.success) {
 					$ionicPopup.alert({
 						title: 'Éxito!',
 						template: 'La password fue editada con éxito'

@@ -16,6 +16,8 @@ class User extends Authenticatable
     /** @var string La PK. */
     protected $primaryKey = 'id_user';
 
+    protected $dateFormat = 'U';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -57,6 +59,7 @@ class User extends Authenticatable
         'apellido' => 'required|min:3',
         'email' => 'required|email',
         'password' => 'required|min:6',
+        'fecha_nac' => 'required',
         'id_ciudad' => 'required|integer|exists:ciudades',
         'id_genero' => 'required|integer|exists:generos'
     ];
@@ -66,6 +69,7 @@ class User extends Authenticatable
         'nombre' => 'required|min:3',
         'apellido' => 'required|min:3',
         'email' => 'required|email',
+        'fecha_nac' => 'required',
         'id_ciudad' => 'required|integer|exists:ciudades',
         'id_genero' => 'required|integer|exists:generos'
     ];
@@ -99,6 +103,7 @@ class User extends Authenticatable
         'email.email' => 'El email del usuario debe tener formato email',
         'password.required' => 'La password del usuario debe tener un valor.',
         'password.min' => 'La password del usuario debe tener al menos :min caracteres.',
+        'fecha_nac.required' => 'La fecha de nacimiento debe tener un valor.',
         'id_ciudad.required' => 'El usuario debe tener una ciudad.',
         'id_ciudad.integer' => 'La ciudad debe ser un número.',
         'id_ciudad.exists' => 'La ciudad seleccionada no existe.',
@@ -115,6 +120,7 @@ class User extends Authenticatable
         'apellido.min' => 'El apellido del usuario debe tener al menos :min caracteres.',
         'email.required' => 'El email del usuario debe tener un valor.',
         'email.email' => 'El email del usuario debe tener formato email',
+        'fecha_nac.required' => 'La fecha de nacimiento debe tener un valor.',
         'id_ciudad.required' => 'El usuario debe tener una ciudad.',
         'id_ciudad.integer' => 'La ciudad debe ser un número.',
         'id_ciudad.exists' => 'La ciudad seleccionada no existe.',

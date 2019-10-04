@@ -7,11 +7,16 @@ angular.module('RedLight.services')
 	function($http, API_SERVER, Auth) {
 		return {
 			todos: function() {
-				return $http.get(API_SERVER + '/posts');
+				return $http.get(API_SERVER + '/posts',{
+					headers:{
+						'Access-Control-Allow-Origin': '*'
+					}
+				});
 			},
 			postAmigos: function() {
 				return $http.get(API_SERVER + '/posts/amigos',{
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'X-Token': Auth.getToken()
 					}
 				});
@@ -19,6 +24,7 @@ angular.module('RedLight.services')
 			crear: function(datos) {
 				return $http.post(API_SERVER + '/posts', datos, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'X-Token': Auth.getToken()
 					}
 				});

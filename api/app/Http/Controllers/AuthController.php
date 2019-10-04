@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function signup(Request $request)
     {
-        $request->validate([
+       /* $request->validate([
             'name'     => 'required|string',
             'email'    => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
@@ -22,7 +22,12 @@ class AuthController extends Controller
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'], 201);
+            'message' => 'Successfully created user!'], 201);*/
+
+        $input = $request->input();
+        $request->validate(User::$rules, User::$errorMessages);
+        User::create($input);
+        return response()->json(['success' => true]);
     }
 
     public function login(Request $request)
@@ -48,9 +53,7 @@ class AuthController extends Controller
             'status' => 1,
             'access_token' => $tokenResult->accessToken,
             'token_type'   => 'Bearer',
-            'expires_at'   => Carbon::parse(
-                $tokenResult->token->expires_at)
-                    ->toDateTimeString(),
+            'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
         ]);
     }
 
