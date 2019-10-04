@@ -18,12 +18,19 @@
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Apellido:</span>
 						<input type="text" ng-model="user.apellido">
-						</label>
+					</label>
+					<label class="item item-input item-select">
+						<div class="input-label">
+							Género
+						</div>
+						<select ng-options="genero.id_genero as genero.genero for genero in generos" ng-model="user.id_genero">
+						</select>
+					</label>
 					<label class="item item-input item-select">
 						<div class="input-label">
 							Ciudad
 						</div>
-						<select ng-options="ciudad.id as ciudad.ciudad for ciudad in ciudades" ng-model="user.fkciudad">
+						<select ng-options="ciudad.id_ciudad as ciudad.ciudad for ciudad in ciudades" ng-model="user.id_ciudad">
 						</select>
 					</label>
 					<label class="item item-input item-stacked-label">

@@ -26,7 +26,11 @@ angular.module('RedLight.services')
 				});
 			},
 			registro: function(user){
-				return $http.post(API_SERVER + '/registro', user).then(function(response) {
+				return $http.post(API_SERVER + '/usuarios', user,{
+					headers:{
+						'Access-Control-Allow-Origin': '*'
+					}
+				}).then(function(response) {
 					// Vamos a verificar si la petición del login tuvo éxito o no.
 					return response.data;
 				});
@@ -34,6 +38,7 @@ angular.module('RedLight.services')
 			getUser: function(){
 				return $http.get(API_SERVER + '/auth/user',{
 					headers:{
+						'Access-Control-Allow-Origin': '*',
 						Authorization: token_type + ' ' + access_token
 					}
 				}).then(function(response) {
@@ -45,6 +50,7 @@ angular.module('RedLight.services')
 			logout: function(){
 				return $http.get(API_SERVER + '/auth/logout',{
 					headers:{
+						'Access-Control-Allow-Origin': '*',
 						Authorization: token_type + ' ' + access_token
 					}
 				}).then(function(response) {

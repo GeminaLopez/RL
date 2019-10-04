@@ -18,6 +18,19 @@ class CiudadesController extends Controller
     }
 
     /**
+     * Muestra la ciudad
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function traerCiudadPorID($id)
+    {
+         // findOrFail evalua si el id no existe, en caso de no existir lanza un 404
+         $ciudad = Ciudad::findOrFail($id); 
+         return response()->json($ciudad);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

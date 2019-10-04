@@ -6,29 +6,33 @@ angular.module('RedLight.controllers')
 	'$ionicPopup',
 	'Usuario',
 	'Ciudad',
+	'Genero',
 	'Auth',
 	'API_SERVER',
-	function($scope, $state, $ionicPopup, Usuario, Ciudad, Auth, API_SERVER) {
+	function($scope, $state, $ionicPopup, Usuario, Ciudad, Genero, Auth, API_SERVER) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
 			id_ciudad: null,
+			id_genero: null,
 			email: null,
 			avatar: null,
 		};
-
-		let ciudad = null;
 
 		//$scope.api_server = API_SERVER+'/';
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los datos del usuario.
 		$scope.$on('$ionicView.beforeEnter', function() {
 			Auth.getUser().then(function(response) {
-				//console.log(response)
+				// console.log(response);
 				if(response.id_user !== null) {
 					Ciudad.traerCiudadPorID(response.id_ciudad).then(function(resp){
 						// le asigno la ciudad que se corresponde por el id
-						$scope.user['id_ciudad'] = resp.data.data.ciudad;
+						$scope.user['id_ciudad'] = resp.data.ciudad;
+					});
+					Genero.traerGeneroPorID(response.id_genero).then(function(resp){
+						// le asigno la ciudad que se corresponde por el id
+						$scope.user['id_genero'] = resp.data.genero;
 					});
 					$scope.user = {
 						nombre: response.nombre,

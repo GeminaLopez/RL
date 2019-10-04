@@ -9,6 +9,7 @@ angular.module('RedLight.services')
 			getLoggedUser: function () {
 				return $http.get(API_SERVER + '/perfil', {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -16,6 +17,7 @@ angular.module('RedLight.services')
 			editar: function(datos) {
 				return $http.put(API_SERVER + '/perfil', datos, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -23,6 +25,7 @@ angular.module('RedLight.services')
 			editarPassword: function(datos) {
 				return $http.patch(API_SERVER + '/perfil', datos, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -30,6 +33,7 @@ angular.module('RedLight.services')
 			getNoAmigos: function() {
 				return $http.get(API_SERVER + '/perfil/getNoAmigos', {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -37,6 +41,7 @@ angular.module('RedLight.services')
 			getAmigos: function() {
 				return $http.get(API_SERVER + '/perfil/getAmigos',{
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -44,6 +49,7 @@ angular.module('RedLight.services')
 			agregarAmigo: function(id) {
 				return $http.post(API_SERVER + '/perfil/agregarAmigo', id ,{
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -51,6 +57,7 @@ angular.module('RedLight.services')
 			eliminarAmigo: function(id) {
 				return $http.delete(API_SERVER + '/perfil/eliminarAmigo/' + id, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Content-Type': 'application/json;charset=UTF-8',
 						'Authorization': Auth.getToken(),
 					},
@@ -60,6 +67,7 @@ angular.module('RedLight.services')
 			getMensajes: function() {
 				return $http.get(API_SERVER + '/mensajes/getMensajes',{
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -67,6 +75,7 @@ angular.module('RedLight.services')
 			getChat: function(id) {
 				return $http.get(API_SERVER + '/mensajes/'+ id ,{
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -74,6 +83,7 @@ angular.module('RedLight.services')
 			enviarMensaje: function(datos, id) {
 				return $http.post(API_SERVER + '/mensajes/'+ id, datos, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -81,6 +91,7 @@ angular.module('RedLight.services')
 			getUsuarios:  function() {
 				return $http.get(API_SERVER + '/mensajes/getUsuarios', {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
@@ -88,6 +99,7 @@ angular.module('RedLight.services')
 			crearMensaje: function(datos) {
 				return $http.post(API_SERVER + '/mensajes/nuevo', datos, {
 					headers: {
+						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
