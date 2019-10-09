@@ -17,6 +17,8 @@ angular.module('RedLight.controllers')
 			id_genero: null,
 			email: null,
 			avatar: null,
+			brinda_servicio: null,	
+			fecha_nac: null
 		};
 
 		//$scope.api_server = API_SERVER+'/';
@@ -34,12 +36,19 @@ angular.module('RedLight.controllers')
 						// le asigno la ciudad que se corresponde por el id
 						$scope.user['id_genero'] = resp.data.genero;
 					});
+
+					$soloFecha = response.fecha_nac.split(" ")[0];
+					$formatoEspaniol = $soloFecha.split("-")[2]+"/"+$soloFecha.split("-")[1]+"/"+$soloFecha.split("-")[0];
+
 					$scope.user = {
 						nombre: response.nombre,
 						apellido: response.apellido,
 						email: response.email,
-						avatar: response.avatar, 	
-					}
+						avatar: response.avatar, 
+						brinda_servicio: response.brinda_servicio,	
+						fecha_nac: $formatoEspaniol,
+					};
+
 				}
 				else{
 					$ionicPopup.alert({
