@@ -30,16 +30,16 @@ angular.module('RedLight.services')
 					}
 				});
 			},
-			getNoAmigos: function() {
-				return $http.get(API_SERVER + '/perfil/getNoAmigos', {
+			getNoAmigos: function(id) {
+				return $http.get(API_SERVER + '/perfil/getNoAmigos/'+ id, {
 					headers: {
 						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
 					}
 				});
 			},
-			getAmigos: function() {
-				return $http.get(API_SERVER + '/perfil/getAmigos',{
+			getAmigos: function(id) {
+				return $http.get(API_SERVER + '/perfil/getAmigos/'+ id,{
 					headers: {
 						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()

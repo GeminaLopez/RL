@@ -23,6 +23,15 @@ angular.module('RedLight.services')
 						// Info errónea
 						return responsePayload;
 					}
+				}, function(err) {
+					if( err.data.status == 401)
+					{
+						return err.data;
+					}
+					else{
+						// para los errores de validacion del form
+						return err.data.errors;
+					}
 				});
 			},
 			registro: function(user){
@@ -31,9 +40,18 @@ angular.module('RedLight.services')
 						'Access-Control-Allow-Origin': '*'
 					}
 				}).then(function(response) {
+					console.log(response)
 					// Vamos a verificar si la petición del login tuvo éxito o no.
-					return response.data;
-				});
+					let responsePayload = response.data;
+					if(responsePayload.status == 1) {
+						// Vamos a verificar si la petición del login tuvo éxito o no.
+						return response.data;
+					}
+				}, function(err) {
+					// para los errores de validacion del form
+					return err.data.errors;
+				}
+				);
 			},
 			getUser: function(){
 				return $http.get(API_SERVER + '/auth/user',{

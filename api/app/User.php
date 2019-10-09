@@ -68,7 +68,7 @@ class User extends Authenticatable
     public static $rulesEdicion = [
         'nombre' => 'required|min:3',
         'apellido' => 'required|min:3',
-        'email' => 'required|email|unique:users',
+        //'email' => 'required|email|unique:users',
         'fecha_nac' => 'required',
         'id_ciudad' => 'required|integer|exists:ciudades',
         'id_genero' => 'required|integer|exists:generos'
@@ -81,10 +81,10 @@ class User extends Authenticatable
 
     /** @var array Los mensajes de error de las $rulesEdicion en la edición del usuario */
     public static $errorMessagesLogin = [
-        'email.required' => 'El email del usuario debe tener un valor.',
-        'email.email' => 'El email del usuario debe tener formato email',
-        'password.required' => 'La password del usuario debe tener un valor.',
-        'password.min' => 'La password del usuario debe tener al menos :min caracteres.'
+        'email.required' => 'El email debe tener un valor.',
+        'email.email' => 'El email debe tener formato email',
+        'password.required' => 'La password debe tener un valor.',
+        'password.min' => 'La password debe tener al menos :min caracteres.'
     ];
 
     /** @var array Los mensajes de error de las $rulePassword */
@@ -118,8 +118,8 @@ class User extends Authenticatable
         'nombre.min' => 'El nombre del usuario debe tener al menos :min caracteres.',
         'apellido.required' => 'El apellido del usuario debe tener un valor.',
         'apellido.min' => 'El apellido del usuario debe tener al menos :min caracteres.',
-        'email.required' => 'El email del usuario debe tener un valor.',
-        'email.email' => 'El email del usuario debe tener formato email',
+        //'email.required' => 'El email del usuario debe tener un valor.',
+        //'email.email' => 'El email del usuario debe tener formato email',
         'fecha_nac.required' => 'La fecha de nacimiento debe tener un valor.',
         'id_ciudad.required' => 'El usuario debe tener una ciudad.',
         'id_ciudad.integer' => 'La ciudad debe ser un número.',

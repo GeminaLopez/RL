@@ -6,7 +6,10 @@ angular.module('RedLight.controllers')
 	'$ionicPopup',
 	'Usuario',
 	'API_SERVER',
-	function($scope,$state,$ionicPopup,Usuario,API_SERVER) {
+	'Auth',
+	'Ciudad',
+	'Genero',
+	function($scope,$state,$ionicPopup,Usuario,API_SERVER, Auth,Ciudad,Genero) {
 		$scope.amigos = [];
 		$scope.noAmigos = [];
 
@@ -14,22 +17,50 @@ angular.module('RedLight.controllers')
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los amigos y no amigos.
 		$scope.$on('$ionicView.beforeEnter', function() {
-			Usuario.getAmigos()
-			.then(function(response) {
-				// Resolve
-				$scope.amigos = response.data;
-			}, function() {
-				// Reject
-				console.log('Hubo un problema, no se pudo traer la información solicitada');
-			});
-			Usuario.getNoAmigos()
-			.then(function(response) {
-				// Resolve
-				$scope.noAmigos = response.data;
-			}, function() {
-				// Reject
-				console.log('Hubo un problema, no se pudo traer la información solicitada');
-			})
+			Auth.getUser().then(function(response) {
+				console.log(response);
+				if(response.id_user !== null) {
+					Ciudad.traerCiudadPorID(response.id_ciudad).then(function(resp){
+						console.log(resp.data);
+						// le asigno la ciudad que se corresponde por el id
+						$scope.user['id_ciudad'] = resp.data.id_ciudad;
+					});
+					Genero.traerGeneroPorID(response.id_genero).then(function(resp){
+						// le asigno la ciudad que se corresponde por el id
+						$scope.user['id_genero'] = resp.data.id_genero;
+					});
+					$scope.user = {
+						id_user: response.id_user,
+						nombre: response.nombre,
+						apellido: response.apellido,
+						email: response.email,
+						avatar: response.avatar,
+					}
+
+					Usuario.getAmigos(response.id_user)
+					.then(function(response) {
+						// Resolve
+						$scope.amigos = response.data;
+					}, function() {
+						// Reject
+						console.log('Hubo un problema, no se pudo traer la información solicitada');
+					});
+					Usuario.getNoAmigos(response.id_user)
+					.then(function(response) {
+						// Resolve
+						$scope.noAmigos = response.data;
+					}, function() {
+						// Reject
+						console.log('Hubo un problema, no se pudo traer la información solicitada');
+					})
+				}
+				else{
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'No pudimos encontrar sus datos. Por favor, contactate con nosotros.'
+					});
+				}
+			});	
 		});
 		
 		// funcion agregar amigo, recibe como parametro el id del usuario a agregar

@@ -30,10 +30,10 @@ Route::middleware('auth:api')->group( function () {
     // Perfil
     Route::put('/perfil', 'API\\UsuariosController@editarPerfilUsuario');
     Route::patch('/perfil', 'API\\UsuariosController@editarPasswordUsuario');
-    /*Route::get('/perfil/getNoAmigos', 'API\\UsuarioController@getNoAmigos');
-    Route::get('/perfil/getAmigos', 'API\\UsuarioController@getAmigos');
-    Route::post('/perfil/agregarAmigo', 'API\\UsuarioController@agregarAmigo');
-    Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuarioController@eliminarAmigo');*/
+    Route::get('/perfil/getNoAmigos/{id}', 'API\\UsuariosController@getNoAmigos');
+    Route::get('/perfil/getAmigos/{id}', 'API\\UsuariosController@getAmigos');
+    /*Route::post('/perfil/agregarAmigo', 'API\\UsuariosController@agregarAmigo');
+    Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuariosController@eliminarAmigo');*/
 
 });
 
@@ -41,9 +41,7 @@ Route::middleware('auth:api')->group( function () {
 Route::get('usuarios', 'API\\UsuariosController@index');
 Route::post('usuarios', 'API\\UsuariosController@nuevoUsuario');
 /*Route::get('usuarios/{id}', 'API\\UsuariosController@detallesUsuario');
-Route::delete('usuarios/{id}', 'API\\UsuariosController@eliminarUsuario');
-Route::put('usuarios/{id}/Password', 'API\\UsuariosController@editarPasswordUsuario');
-Route::put('usuarios/{id}/Perfil', 'API\\UsuariosController@editarPerfilUsuario');*/
+Route::delete('usuarios/{id}', 'API\\UsuariosController@eliminarUsuario');*/
 
 // Ciudad
 Route::get('ciudad', 'API\\CiudadesController@index');

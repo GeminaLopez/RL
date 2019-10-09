@@ -66,10 +66,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			templateUrl: 'templates/tab-posts-amigos.html',
 			controller: 'PostsAmigosCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de posts nuevos.
@@ -80,10 +80,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			templateUrl: 'templates/tab-posts-nuevo.html',
 			controller: 'PostsNuevoCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de Comentarios
@@ -105,10 +105,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-comentarios-nuevo.html',
 				controller: 'ComentariosNuevoCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de contactos.
@@ -119,10 +119,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-contactos.html',
 				controller: 'ContactosCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de login.
@@ -173,10 +173,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-perfil-editar.html',
 				controller: 'PerfilEditarCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// creo la vista de perfil.
@@ -187,10 +187,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-perfil-editar-password.html',
 				controller: 'PerfilEditarCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// creo la vista de mensajes.
@@ -201,10 +201,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-mensajes.html',
 				controller: 'MensajesCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de mensajes por idUsuario.
@@ -215,10 +215,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-mensajes-chat.html',
 				controller: 'MensajesChatCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	// Creo la vista de mensaje nuevo.
@@ -229,10 +229,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-mensajes-nuevo.html',
 				controller: 'MensajesNuevoCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true
-		}*/
+		}
 	})
 
 	;

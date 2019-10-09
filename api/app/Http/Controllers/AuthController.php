@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Carbon\Carbon;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,44 +11,28 @@ class AuthController extends Controller
 {
     public function signup(Request $request)
     {
-       /* $request->validate([
-            'name'     => 'required|string',
-            'email'    => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed',
-        ]);
-        $user = new User([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'], 201);*/
-
-        $input = $request->input();
         $request->validate(User::$rules, User::$errorMessages);
-        User::create($input);
-        return response()->json(['success' => true]);
+        $input = $request->input();
+        User::create();
+        return response()->json(['status' => 1]);
+        
     }
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email'       => 'required|string|email',
-            'password'    => 'required|string',
-            'remember_me' => 'boolean',
-        ]);
+        $request->validate(User::$rulesLogin, User::$errorMessagesLogin);
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Unauthorized'], 401);
+                'status' => 401,
+                'mensaje' => 'Credenciales no válidas'], 401);
         }
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
-        if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        }
+        //if ($request->remember_me) {
+        $token->expires_at = Carbon::now()->addWeeks(1);
+        //}
         $token->save();
         return response()->json([
             'status' => 1,
@@ -68,6 +53,8 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $user = $request->user();
+        $user["fecha_nac"] = Carbon::parse($request->user()->fecha_nac);
+        return response()->json($user);
     }
 }

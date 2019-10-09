@@ -3,36 +3,42 @@
 		<div>
 			<h2>Completa nuestro formulario</h2>
 		</div>
-		<div ng-if="errores">
+		<!--<div ng-if="errores">
 			<ul class="errores"> 
 				<li>Por favor revisá estos campos:</li>
 				<li ng-repeat="(key,val) in errores">
 					 {{ key }}: {{val}}
 				</li>
 			</ul>
-		</div>
+		</div>-->
 		<form ng-submit="registro(user)">
 			<div class="list">
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Nombre:</span>
 					<input type="text" ng-model="user.nombre"/>
+					<div class="alert errors" ng-if="errores.nombre != null">{{ errores.nombre[0] }}</div>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Apellido:</span>
 					<input type="text" ng-model="user.apellido"/>
+					<div class="alert errors" ng-if="errores.apellido != null">{{ errores.apellido[0] }}</div>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Fecha de nacimiento</span>
 					<!--<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)" placeholder="dd/mm/AAAA"/>-->
-					<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)" placeholder="dd/mm/AAAA"/>
+					<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)" placeholder="dd/mm/AAAA" min="1929-01-01" max="2022-01-01"/>
+					<div class="alert errors" ng-if="errores.fecha_nac != null">{{ errores.fecha_nac[0] }}</div>
+
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Email:</span>
 					<input type="text" ng-model="user.email"/>
+					<div class="alert errors" ng-if="errores.email != null">{{ errores.email[0] }}</div>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Clave:</span>
 					<input type="password" ng-model="user.password"/>
+					<div class="alert errors" ng-if="errores.password != null">{{ errores.password[0] }}</div>
 				</label>
 				<label class="item item-input item-select">
 					<div class="input-label">
@@ -40,6 +46,7 @@
 					</div>
 					<select ng-options="genero.id_genero as genero.genero for genero in generos" ng-model="user.id_genero">
 					</select>
+					<div class="alert errors" ng-if="errores.id_genero != null">{{ errores.id_genero[0] }}</div>
 				</label>
 				<label class="item item-input item-select">
 					<div class="input-label">
@@ -47,6 +54,7 @@
 					</div>
 					<select ng-options="ciudad.id_ciudad as ciudad.ciudad for ciudad in ciudades" ng-model="user.id_ciudad">
 					</select>
+					<div class="alert errors" ng-if="errores.id_ciudad != null">{{ errores.id_ciudad[0] }}</div>
 				</label>
 				<ul class="list">
 					<li class="item item-toggle">
@@ -68,7 +76,7 @@
                 </label>
 			</div>
 			<p>Tené en cuenta que para poder utilizar o brindar algún servicio informado en nuestra app tenés que ser mayor de 18 años.</p>
-			<button class="button button-block button-positive" ng-disabled="edad<18">Registrate</button>
+			<button class="button button-block button-positive" ng-disabled="edad<18" >Registrate</button>
 		</form>
 		
 	</ion-content>
