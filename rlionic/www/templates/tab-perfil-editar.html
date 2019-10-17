@@ -1,27 +1,30 @@
 <ion-view title="Editar mis datos">
 	<ion-content class="padding">
-		<div ng-if="errores">
+		<!--<div ng-if="errores">
 			<ul class="errores"> 
 				<li>Por favor revisá estos campos:</li>
 				<li ng-repeat="(key,val) in errores">
 						{{ key }}: {{val}}
 				</li>
 			</ul>
-		</div>
+		</div>-->
 		<div>
 			<form ng-submit="editar(user)">
 				<div class="list">
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Nombre:</span>
 						<input type="text" ng-model="user.nombre">
+						<div class="alert errors" ng-if="errores.nombre != null">{{ errores.nombre[0] }}</div>
 					</label>
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Apellido:</span>
 						<input type="text" ng-model="user.apellido">
+						<div class="alert errors" ng-if="errores.apellido != null">{{ errores.apellido[0] }}</div>
 					</label>
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Fecha de nacimiento</span>
 						<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)"/>
+						<div class="alert errors" ng-if="errores.fecha_nac != null">{{ errores.fecha_nac[0] }}</div>
 					</label>
 					<label class="item item-input item-select">
 						<div class="input-label">
@@ -29,6 +32,7 @@
 						</div>
 						<select ng-options="genero.id_genero as genero.genero for genero in generos" ng-model="user.id_genero">
 						</select>
+						<div class="alert errors" ng-if="errores.id_genero != null">{{ errores.id_genero[0] }}</div>
 					</label>
 					<label class="item item-input item-select">
 						<div class="input-label">
@@ -36,16 +40,28 @@
 						</div>
 						<select ng-options="ciudad.id_ciudad as ciudad.ciudad for ciudad in ciudades" ng-model="user.id_ciudad">
 						</select>
+						<div class="alert errors" ng-if="errores.id_ciudad != null">{{ errores.id_ciudad[0] }}</div>
+					</label>
+					<ul class="list">
+						<li class="item item-toggle">
+							¿Desea brindar servicio sexual?
+							<label class="toggle toggle-assertive">
+								<input type="checkbox" ng-model="user.brinda_servicio" ng-checked="user.brinda_servicio ? checked : unchecked">
+								<div class="track">
+									<div class="handle"></div>
+								</div>
+							</label>
+						</li>		
+					</ul>
+					<label class="item item-input item-stacked-label">
+						<span class="input-label avatar">Avatar actual: </span>
+						<img class="imgPerfil" alt="Foto de Perfil de {{user.nombre}}" ng-src="{{api_server+user.avatar}}" />						
 					</label>
 					<label class="item item-input item-stacked-label">
-						<span class="input-label">Email:</span>
-						<input type="text" ng-model="user.email">
-					</label>
-					<label class="item item-input item-stacked-label">
-						<span class="input-label avatar">Avatar: </span>
-						<img alt="Foto de Perfil" ng-src="{{api_server+user.avatar}}" />
+						<span class="input-label avatar">Presione aquí si desea cambiar su avatar: </span>
 						<input type="file" id="avatar" ng-model="user.avatar">						
 					</label>
+					
 				</div>
 				<button class="button button-block button-positive" ng-disabled="edad<18">Guardar</button>
 			</form>

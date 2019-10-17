@@ -9,7 +9,7 @@
 			<div class="item item-avatar">
 				<img alt="Foto de Perfil de {{amigo.nombre}}" ng-src="{{api_server+amigo.avatar}}"/>
 				<h3>{{ amigo.nombre }} </h3>
-				<a class="button button-small button-positive" ng-click="eliminarAmigo({{amigo.id}})">Eliminar de mi lista de amigos</a>
+				<a class="button button-small button-positive" ng-click="eliminarAmigo({{amigo.id_user}})">Eliminar de mi lista de amigos</a>
 			</div>
 		</div>
 		<div ng-if="amigos.length == 0">
@@ -23,7 +23,7 @@
 			<div class="item item-avatar">
 				<img alt="Foto de Perfil de {{noAmigo.nombre}}" ng-src="{{api_server+noAmigo.avatar}}"/>
 				<h3>{{ noAmigo.nombre }} </h3>
-				<a class="button button-small button-positive" ng-click="agregarAmigo({{noAmigo.id}})">Agregar a mi lista de amigos</a>
+				<a class="button button-small button-positive" ng-click="agregarAmigo({{noAmigo.id_user}})">Agregar a mi lista de amigos</a>
 			</div>
 		</div>
 		<div ng-if="noAmigos.length == 0">

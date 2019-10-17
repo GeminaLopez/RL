@@ -38,6 +38,7 @@ angular.module('RedLight.services')
 				return $http.post(API_SERVER + '/usuarios', user,{
 					headers:{
 						'Access-Control-Allow-Origin': '*'
+						
 					}
 				}).then(function(response) {
 					console.log(response)
@@ -48,6 +49,7 @@ angular.module('RedLight.services')
 						return response.data;
 					}
 				}, function(err) {
+					console.log(err);
 					// para los errores de validacion del form
 					return err.data.errors;
 				}

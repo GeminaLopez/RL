@@ -7,19 +7,21 @@ angular.module('RedLight.controllers')
 	'Usuario',
 	'Ciudad',
 	'Genero',
-	'API_SERVER',
+	'SERVER',
 	'Auth',
-	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, API_SERVER, Auth) {
+	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, SERVER, Auth) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
 			id_ciudad: null,
 			id_genero: null,
-			email: null,
 			avatar: null,
+			brinda_servicio: null,	
+			fecha_nac: null,
+			password: null,
 		};
 
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+"storage/";
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los datos del usuario.
 		$scope.$on('$ionicView.beforeEnter', function() {
@@ -27,7 +29,6 @@ angular.module('RedLight.controllers')
 				//console.log(response);
 				if(response.id_user !== null) {
 					Ciudad.traerCiudadPorID(response.id_ciudad).then(function(resp){
-						console.log(resp.data);
 						// le asigno la ciudad que se corresponde por el id
 						$scope.user['id_ciudad'] = resp.data.id_ciudad;
 					});
@@ -35,12 +36,17 @@ angular.module('RedLight.controllers')
 						// le asigno la ciudad que se corresponde por el id
 						$scope.user['id_genero'] = resp.data.id_genero;
 					});
+
+					$soloFecha = response.fecha_nac.split(" ")[0];
+					$formatoEspaniol = $soloFecha.split("-")[2]+"/"+$soloFecha.split("-")[1]+"/"+$soloFecha.split("-")[0];
+
 					$scope.user = {
 						id_user: response.id_user,
 						nombre: response.nombre,
 						apellido: response.apellido,
-						email: response.email,
 						avatar: response.avatar,
+						brinda_servicio: response.brinda_servicio,	
+						fecha_nac: new Date(response.fecha_nac),
 					}
 				}
 				else{
@@ -65,7 +71,7 @@ angular.module('RedLight.controllers')
 		$scope.editar = function (user){
 			// Guardo los datos que el usuario editó
 			Usuario.editar(user).then(function(response) {
-				if(response.status == 1) {
+				if(response.status == 200) {
 					$ionicPopup.alert({
 						title: 'Éxito!',
 						template: 'El usuario fue editado con éxito'
@@ -73,25 +79,22 @@ angular.module('RedLight.controllers')
 						// Lo redireccionamos al perfil nuevamente.
 						$state.go('tab.perfil');
 					});
-				} else if(responseInfo.status == 0) {
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Oops! Hubo un error al editar el perfil. Por favor, probá de nuevo.'
-					});
-				}else{
-					$scope.errores = responseInfo.errores;
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Por favor, revisá los campos del formulario.'
-					});
 				}
+			}).catch(function(err)
+			{
+				$scope.errores = err.data.errors;
+				$ionicPopup.alert({
+					title: 'Error',
+					template: 'Por favor, revisá los campos del formulario.'
+				});
 			});
 		};
 
-		$scope.editarPassword = function(user){
+		$scope.editarPassword = function(pass){
 			// Guardo la password nueva del usuario
-			Usuario.editarPassword(user).then(function(response) {
-				if(response.data.success) {
+			Usuario.editarPassword(pass).then(function(resp) {
+				//console.log(resp);
+				if(resp.status == 200) {
 					$ionicPopup.alert({
 						title: 'Éxito!',
 						template: 'La password fue editada con éxito'
@@ -99,18 +102,14 @@ angular.module('RedLight.controllers')
 						// Lo redireccionamos al perfil nuevamente.
 						$state.go('tab.perfil');
 					});
-				} else if(responseInfo.status == 0) {
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Oops! Hubo un error al editar la password. Por favor, probá de nuevo.'
-					});
-				} else{
-					$scope.errores = responseInfo.errores;
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Por favor, revisá el campo clave'
-					});
 				}
+			}).catch(function(err)
+			{
+				$scope.errores = err.data.errors;
+				$ionicPopup.alert({
+					title: 'Error',
+					template: 'Por favor, revisá el campo clave'
+				});
 			});
 		};
 

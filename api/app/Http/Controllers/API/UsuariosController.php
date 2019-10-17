@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Storage\File;
 
 class UsuariosController extends Controller
 {
@@ -32,12 +34,19 @@ class UsuariosController extends Controller
         $input['fecha_nac'] = Carbon::parse($request->fecha_nac);//->format('Y-m-d');
 
         // Chequeamos si hay una imagen avatar.
-        if($request->hasFile('avatar')) {
-           $path = $request->avatar->store('/public/imgs/usuarios');
+        /*if($input['avatar']) {
+           $path = $input['avatar']->store('/public/imgs/usuarios');
            $path = explode('/',$path);
            $input['avatar']= $path[3];
         } else {
-            $input['avatar'] = '';
+            $input['avatar'] = 'aaaa';
+        }*/
+
+        
+        if($input['avatar']) {
+            $input['avatar'] = File::subirImagen($input['avatar'],'usuarios');
+        } else {
+            $input['avatar'] = 'imgs/usuarios/defaultAvatar.png';
         }
         $password = $request->password;
         $input['password'] = Hash::make($password);
@@ -161,5 +170,117 @@ class UsuariosController extends Controller
         //die();
 
         return response()->json($amigos);
+    }
+
+    /**
+     * Inserta un nuevo amigo del usuario en la base de datos.
+     *
+     */
+	public function agregarAmigo()
+	{
+        var_dump("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        die();
+
+        // verificación para saber si el usuario está autenticado para hacer esta acción
+       /* $userId = Auth::user()->id_user;
+
+		$idNuevoAmigo = (int)$idNuevoAmigo;
+
+		// Valido que los datos vengan y no sean vacíos
+		if(isset($idNuevoAmigo) && !empty($idNuevoAmigo))
+	 	{
+			try {
+				if($userId < $idNuevoAmigo){
+                    $masChico = $userId;
+                    $masGrande = $idNuevoAmigo;
+                }
+                else{
+                    $masChico = $idNuevoAmigo;
+                    $masGrande = $userId;
+                }
+        
+                var_dump($masChico);
+                die();
+                $query = "INSERT INTO contactos (id_user_1, id_user_2) VALUES (:id_user_1, :id_user_2)";
+                $stmt = DB::getPdo()->prepare($query);
+                $exito = $stmt->execute([
+                    'id_user_1'   => $masChico,
+                    'id_user_2'   => $masGrande
+                ]);
+                        
+                if($exito) {
+                    // Todo ok!
+                    return response()->json(['status' => 0]);
+                } else {
+                    // Todo mal :(
+                    return response()->json(['status' => 1]);
+                }
+
+				
+			} catch(Exception $e) {
+				// Todo mal :(
+                return response()->json(['status' => -1]);
+			}
+		}
+		else{
+			// algun dato no vino o es vacío
+            return response()->json(['status' => -2]);
+        }*/
+
+    }
+    
+
+    /**
+	 * elimina un amigo.
+	 *
+	 */
+	public function eliminarAmigo($idAmigoAEliminar)
+	{
+		// verificación para saber si el usuario está autenticado para hacer esta acción
+        $userId = Auth::user()->id_user;
+        //var_dump($userId);
+        //die();
+
+        $idAmigoAEliminar = (int)$idAmigoAEliminar;
+
+		// Valido que los datos vengan y no sean vacíos
+		if(isset($idAmigoAEliminar) && !empty($idAmigoAEliminar))
+	 	{
+			try {
+
+                if($userId < $idAmigoAEliminar){
+                    $masChico = $userId;
+                    $masGrande = $idAmigoAEliminar;
+                }
+                else{
+                    $masChico = $idAmigoAEliminar;
+                    $masGrande = $userId;
+                }
+
+                //var_dump($masGrande);
+                //die();
+                $query = "DELETE FROM contactos WHERE id_user_1 = ? and id_user_2 = ?";
+                $stmt = DB::getPdo()->prepare($query);
+                $exitoDeleteAmigo = $stmt->execute([$masChico,$masGrande]);
+
+                if(!$exitoDeleteAmigo)
+                {
+                    // Todo mal :(
+                    return response()->json(['status' => 0]);
+                }else{
+                    // Todo ok!
+				    return response()->json(['status' => 1]);
+                }
+				
+			} catch(Exception $e) {
+				// Todo mal :(
+                return response()->json(['status' => 0]);
+			}
+		}
+		else{
+			// algun dato no vino o es vacío
+			return response()->json(['status' => -1]);
+		}
 	}
+
 }

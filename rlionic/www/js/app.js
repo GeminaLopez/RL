@@ -243,4 +243,6 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 })
 
 // Definimos la constante con la ruta de la api.
-.constant('API_SERVER', 'http://localhost:8000/api');
+.constant('API_SERVER', 'http://localhost:8000/api')
+// Definimos la constante con la ruta de la api.
+.constant('SERVER', 'http://localhost:8000/');

@@ -47,7 +47,7 @@ angular.module('RedLight.services')
 				});
 			},
 			agregarAmigo: function(id) {
-				return $http.post(API_SERVER + '/perfil/agregarAmigo', id ,{
+				return $http.post(API_SERVER + '/perfil/agregarAmigo/'+ id, {
 					headers: {
 						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()
@@ -58,10 +58,8 @@ angular.module('RedLight.services')
 				return $http.delete(API_SERVER + '/perfil/eliminarAmigo/' + id, {
 					headers: {
 						'Access-Control-Allow-Origin': '*',
-						'Content-Type': 'application/json;charset=UTF-8',
-						'Authorization': Auth.getToken(),
-					},
-					body: {id : id}				
+						'Authorization': Auth.getToken()
+					}			
 				});
 			},
 			getMensajes: function() {
