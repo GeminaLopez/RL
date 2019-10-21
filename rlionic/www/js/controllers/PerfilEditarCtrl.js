@@ -69,25 +69,45 @@ angular.module('RedLight.controllers')
 		});
 
 		$scope.editar = function (user){
-			// Guardo los datos que el usuario editó
-			Usuario.editar(user).then(function(response) {
-				if(response.status == 200) {
+			let avatar = document.getElementById('avatar');
+			
+			// valido si cargaron la imagen para convertirla en base64
+            if(avatar.files.length == 0){                
+                editar(user);               
+            } else{
+                // convierto la imagen a base64 para guardarla en la base
+                const reader = new FileReader();            
+                reader.readAsDataURL(avatar.files[0]);
+                reader.addEventListener('load', function () {                   
+					let base64 = reader.result;
+					$scope.user.avatar = base64; 
+                    //$scope.user.avatar = avatar.files[0];                  
+                    editar(user);
+                });
+                
+			}
+			
+			function editar(user){
+				// Guardo los datos que el usuario editó
+				Usuario.editar(user).then(function(response) {
+					if(response.status == 200) {
+						$ionicPopup.alert({
+							title: 'Éxito!',
+							template: 'El usuario fue editado con éxito'
+						}).then(function() {
+							// Lo redireccionamos al perfil nuevamente.
+							$state.go('tab.perfil');
+						});
+					}
+				}).catch(function(err)
+				{
+					$scope.errores = err.data.errors;
 					$ionicPopup.alert({
-						title: 'Éxito!',
-						template: 'El usuario fue editado con éxito'
-					}).then(function() {
-						// Lo redireccionamos al perfil nuevamente.
-						$state.go('tab.perfil');
+						title: 'Error',
+						template: 'Por favor, revisá los campos del formulario.'
 					});
-				}
-			}).catch(function(err)
-			{
-				$scope.errores = err.data.errors;
-				$ionicPopup.alert({
-					title: 'Error',
-					template: 'Por favor, revisá los campos del formulario.'
 				});
-			});
+			}
 		};
 
 		$scope.editarPassword = function(pass){

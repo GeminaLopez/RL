@@ -5,11 +5,11 @@ angular.module('RedLight.controllers')
 	'$state',
 	'Usuario',
 	'$ionicPopup',
-	'API_SERVER',
-	function($scope, $state, Usuario, $ionicPopup, API_SERVER) {
+	'SERVER',
+	function($scope, $state, Usuario, $ionicPopup, SERVER) {
 		$scope.mensajes = [];
 
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'storage/';
 
 		// busco todas los usuarios para cargar el dropdown
 		Usuario.getUsuarios().then(function(exito){

@@ -95,12 +95,13 @@ class User extends Authenticatable
 
     /** @var array Los mensajes de error de las $rules en la creación del usuario */
     public static $errorMessages = [
-        'nombre.required' => 'El nombre del usuario debe tener un valor.',
-        'nombre.min' => 'El nombre del usuario debe tener al menos :min caracteres.',
-        'apellido.required' => 'El apellido del usuario debe tener un valor.',
-        'apellido.min' => 'El apellido del usuario debe tener al menos :min caracteres.',
-        'email.required' => 'El email del usuario debe tener un valor.',
-        'email.email' => 'El email del usuario debe tener formato email',
+        'nombre.required' => 'El nombre debe tener un valor.',
+        'nombre.min' => 'El nombre debe tener al menos :min caracteres.',
+        'apellido.required' => 'El apellido  debe tener un valor.',
+        'apellido.min' => 'El apellido debe tener al menos :min caracteres.',
+        'email.required' => 'El email debe tener un valor.',
+        'email.email' => 'El email debe tener formato email',
+        'email.unique' => 'El email ya se está utilizando. Por favor, ingrese otro.',
         'password.required' => 'La password del usuario debe tener un valor.',
         'password.min' => 'La password del usuario debe tener al menos :min caracteres.',
         'fecha_nac.required' => 'La fecha de nacimiento debe tener un valor.',
@@ -138,4 +139,5 @@ class User extends Authenticatable
         // relación inversa del 1 a muchos
         return $this->hasMany(Comentario::class, 'id_user', 'id_user');
     }
+
 }

@@ -88,12 +88,17 @@ class UsuariosController extends Controller
         $usuario = User::findOrFail($input["id_user"]);
         $input["fecha_nac"] = Carbon::parse($request->fecha_nac);
         // Chequeamos si hay una imagen avatar.
-        if($request->hasFile('avatar')) {
+        /*if($request->hasFile('avatar')) {
             $path = $request->avatar->store('/public/imgs/usuarios');
             $path = explode('/',$path);
             $input['avatar']= $path[3];
         } else {
             $input['avatar'] = '';
+        }*/
+        if($input['avatar']) {
+            $input['avatar'] = File::subirImagen($input['avatar'],'usuarios');
+        } else {
+            $input['avatar'] = 'imgs/usuarios/defaultAvatar.png';
         }
         $usuario->update($input);
         return response()->json(['status' => 1]);
@@ -109,6 +114,7 @@ class UsuariosController extends Controller
         $input = $request->input();
         $request->validate(User::$rulePassword, User::$errorMessagesPassword);
         $usuario = User::findOrFail($input["id_user"]);
+        $input["fecha_nac"] = Carbon::parse($request->fecha_nac);
         $password = $request->password;
         $input['password'] = Hash::make($password);
         $usuario->update($input);
@@ -176,15 +182,14 @@ class UsuariosController extends Controller
      * Inserta un nuevo amigo del usuario en la base de datos.
      *
      */
-	public function agregarAmigo()
+	public function agregarAmigo(Request $request)
 	{
-        var_dump("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        die();
-
         // verificación para saber si el usuario está autenticado para hacer esta acción
-       /* $userId = Auth::user()->id_user;
+       $userId = Auth::user()->id_user;
 
-		$idNuevoAmigo = (int)$idNuevoAmigo;
+       //var_dump($request->all()[0]);
+
+       $idNuevoAmigo = $request->all()[0]; 
 
 		// Valido que los datos vengan y no sean vacíos
 		if(isset($idNuevoAmigo) && !empty($idNuevoAmigo))
@@ -199,21 +204,34 @@ class UsuariosController extends Controller
                     $masGrande = $userId;
                 }
         
-                var_dump($masChico);
-                die();
-                $query = "INSERT INTO contactos (id_user_1, id_user_2) VALUES (:id_user_1, :id_user_2)";
+                //var_dump($masChico);
+                //var_dump($masGrande);
+                //die();
+
+                $created_at = Carbon::now();
+                $updated_at = Carbon::now();
+
+                $query = "INSERT INTO contactos (id_user_1, id_user_2, created_at, updated_at) VALUES (:id_user_1, :id_user_2, :created_at, :updated_at)";
                 $stmt = DB::getPdo()->prepare($query);
                 $exito = $stmt->execute([
                     'id_user_1'   => $masChico,
-                    'id_user_2'   => $masGrande
+                    'id_user_2'   => $masGrande,
+                    'created_at'  => $created_at,
+                    'updated_at'  => $updated_at
                 ]);
+
+                //$results = $stmt->fetch();
+                //echo '<pre>';
+                //print_r($exito);
+                //echo '</pre>';   
+                //die();
                         
                 if($exito) {
                     // Todo ok!
-                    return response()->json(['status' => 0]);
+                    return response()->json(['status' => 1]);
                 } else {
                     // Todo mal :(
-                    return response()->json(['status' => 1]);
+                    return response()->json(['status' => 0]);
                 }
 
 				
@@ -225,7 +243,7 @@ class UsuariosController extends Controller
 		else{
 			// algun dato no vino o es vacío
             return response()->json(['status' => -2]);
-        }*/
+        }
 
     }
     

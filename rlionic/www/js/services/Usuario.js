@@ -47,7 +47,7 @@ angular.module('RedLight.services')
 				});
 			},
 			agregarAmigo: function(id) {
-				return $http.post(API_SERVER + '/perfil/agregarAmigo/'+ id, {
+				return $http.post(API_SERVER + '/perfil/agregarAmigo', id, {
 					headers: {
 						'Access-Control-Allow-Origin': '*',
 						'Authorization': Auth.getToken()

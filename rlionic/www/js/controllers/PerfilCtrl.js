@@ -8,8 +8,8 @@ angular.module('RedLight.controllers')
 	'Ciudad',
 	'Genero',
 	'Auth',
-	'API_SERVER',
-	function($scope, $state, $ionicPopup, Usuario, Ciudad, Genero, Auth, API_SERVER) {
+	'SERVER',
+	function($scope, $state, $ionicPopup, Usuario, Ciudad, Genero, Auth, SERVER) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
@@ -21,7 +21,7 @@ angular.module('RedLight.controllers')
 			fecha_nac: null
 		};
 
-		//$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'storage/';
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los datos del usuario.
 		$scope.$on('$ionicView.beforeEnter', function() {

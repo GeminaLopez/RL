@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 
 // Esto lo vamos a necesitar para CORS, eventualmente.
-Route::options('/{any}', function() {return '';})->where('any', '.*');
+//Route::options('/{any}', function() {return '';})->where('any', '.*');
 
 // primer parametro la ruta
 // segundo parametro el controlador
@@ -32,10 +32,12 @@ Route::middleware('auth:api')->group( function () {
     Route::patch('/perfil', 'API\\UsuariosController@editarPasswordUsuario');
     Route::get('/perfil/getNoAmigos/{id}', 'API\\UsuariosController@getNoAmigos');
     Route::get('/perfil/getAmigos/{id}', 'API\\UsuariosController@getAmigos');
-    Route::post('/perfil/agregarAmigo/{id}', 'API\\UsuariosController@agregarAmigo');
+    Route::post('/perfil/agregarAmigo', 'API\\UsuariosController@agregarAmigo');
     Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuariosController@eliminarAmigo');
 
 });
+
+
 
 // Usuarios
 Route::get('usuarios', 'API\\UsuariosController@index');

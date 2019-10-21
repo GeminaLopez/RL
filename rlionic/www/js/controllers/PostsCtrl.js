@@ -4,10 +4,10 @@ angular.module('RedLight.controllers')
 	'$scope',
 	'Usuario',
 	'Post',
-	'API_SERVER',
-	function($scope,Usuario, Post, API_SERVER) {
+	'SERVER',
+	function($scope,Usuario, Post, SERVER) {
 		$scope.posts = [];
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'storage/';
 
 		Usuario.getLoggedUser().then(function(response) {
 			let responsePayload = response.data;

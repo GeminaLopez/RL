@@ -3,11 +3,11 @@ angular.module('RedLight.controllers')
 .controller('MensajesCtrl', [
 	'$scope',
 	'Usuario',
-	'API_SERVER',
-	function($scope, Usuario,API_SERVER) {
+	'SERVER',
+	function($scope, Usuario,SERVER) {
 		$scope.mensajes = [];
 
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'/';
 		
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes.
 		$scope.$on('$ionicView.beforeEnter', function() {

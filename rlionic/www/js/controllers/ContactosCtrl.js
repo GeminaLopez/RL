@@ -5,15 +5,15 @@ angular.module('RedLight.controllers')
 	'$state',
 	'$ionicPopup',
 	'Usuario',
-	'API_SERVER',
+	'SERVER',
 	'Auth',
 	'Ciudad',
 	'Genero',
-	function($scope,$state,$ionicPopup,Usuario,API_SERVER, Auth,Ciudad,Genero) {
+	function($scope,$state,$ionicPopup,Usuario,SERVER, Auth,Ciudad,Genero) {
 		$scope.amigos = [];
 		$scope.noAmigos = [];
 
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'storage/';
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los amigos y no amigos.
 		$scope.$on('$ionicView.beforeEnter', function() {
@@ -36,16 +36,14 @@ angular.module('RedLight.controllers')
 						avatar: response.avatar,
 					}
 
-					Usuario.getAmigos(response.id_user)
-					.then(function(response) {
+					Usuario.getAmigos(response.id_user).then(function(response) {
 						// Resolve
 						$scope.amigos = response.data;
 					}, function() {
 						// Reject
 						console.log('Hubo un problema, no se pudo traer la información solicitada');
 					});
-					Usuario.getNoAmigos(response.id_user)
-					.then(function(response) {
+					Usuario.getNoAmigos(response.id_user).then(function(response) {
 						// Resolve
 						$scope.noAmigos = response.data;
 					}, function() {
@@ -66,16 +64,17 @@ angular.module('RedLight.controllers')
 		$scope.agregarAmigo = function(id) {
 			Usuario.agregarAmigo(id).then(function(response) {
 				console.log(response);
+				console.log($scope.user['id_user']);
 				let responseInfo = response.data;
 				if(responseInfo.status == 1) {
-					Usuario.getAmigos().then(function(response) {
+					Usuario.getAmigos($scope.user['id_user']).then(function(response) {
 							// Resolve
 							$scope.amigos = response.data;
 						}, function() {
 							// Reject
 							console.log('Hubo un problema, no se pudo traer la información solicitada');
 					});
-					Usuario.getNoAmigos().then(function(response) {
+					Usuario.getNoAmigos($scope.user['id_user']).then(function(response) {
 							// Resolve
 							$scope.noAmigos = response.data;
 						}, function() {
@@ -104,16 +103,14 @@ angular.module('RedLight.controllers')
 			.then(function(response) {
 				let responseInfo = response.data;
 				if(responseInfo.status == 1) {
-					Usuario.getAmigos()
-					.then(function(response) {
+					Usuario.getAmigos($scope.user['id_user']).then(function(response) {
 						// Resolve
 						$scope.amigos = response.data;
 					}, function() {
 						// Reject
 						console.log('Hubo un problema, no se pudo traer la información solicitada');
 					});
-					Usuario.getNoAmigos()
-					.then(function(response) {
+					Usuario.getNoAmigos($scope.user['id_user']).then(function(response) {
 						// Resolve
 						$scope.noAmigos = response.data;
 					}, function() {

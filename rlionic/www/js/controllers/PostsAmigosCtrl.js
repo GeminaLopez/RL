@@ -3,10 +3,10 @@ angular.module('RedLight.controllers')
 .controller('PostsAmigosCtrl', [
 	'$scope',
 	'Post',
-	'API_SERVER',
-	function($scope,Post,API_SERVER) {
+	'SERVER',
+	function($scope,Post,SERVER) {
 		$scope.posts = [];
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER+'storage/';
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los posts.
 		$scope.$on('$ionicView.beforeEnter', function() {
