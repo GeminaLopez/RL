@@ -1,1 +1,0 @@
-angular.module('RedLight.services', [])
