@@ -32,7 +32,7 @@ class GenerosTableSeeder extends Seeder
         ]);
         DB::table('generos')->insert([
             'id_genero' => 4,
-            'genero' => 'Tranvesti',
+            'genero' => 'Travesti',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

@@ -15,27 +15,50 @@
 			<div class="list">
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Nombre:</span>
-					<input type="text" ng-model="user.nombre">
+					<input type="text" ng-model="user.nombre"/>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Apellido:</span>
-					<input type="text" ng-model="user.apellido">
+					<input type="text" ng-model="user.apellido"/>
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Fecha de nacimiento</span>
+					<!--<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)" placeholder="dd/mm/AAAA"/>-->
+					<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)" placeholder="dd/mm/AAAA"/>
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Email:</span>
+					<input type="text" ng-model="user.email"/>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Clave:</span>
-					<input type="password" ng-model="user.clave">
+					<input type="password" ng-model="user.password"/>
+				</label>
+				<label class="item item-input item-select">
+					<div class="input-label">
+						Género
+					</div>
+					<select ng-options="genero.id_genero as genero.genero for genero in generos" ng-model="user.id_genero">
+					</select>
 				</label>
 				<label class="item item-input item-select">
 					<div class="input-label">
 						Ciudad
 					</div>
-					<select ng-options="ciudad.id as ciudad.ciudad for ciudad in ciudades" ng-model="user.fkciudad">
+					<select ng-options="ciudad.id_ciudad as ciudad.ciudad for ciudad in ciudades" ng-model="user.id_ciudad">
 					</select>
 				</label>
-				<label class="item item-input item-stacked-label">
-					<span class="input-label">Email:</span>
-					<input type="text" ng-model="user.email">
-				</label>
+				<ul class="list">
+					<li class="item item-toggle">
+						¿Desea brindar servicio sexual?
+						<label class="toggle toggle-assertive">
+							<input type="checkbox" ng-model="user.brinda_servicio">
+							<div class="track">
+								<div class="handle"></div>
+							</div>
+						</label>
+					</li>		
+				</ul>		
 				<label class="item item-input item-stacked-label">
 					<span class="input-label avatar">Agrega una foto(opcional)</span>
                     <div class="button button-positive">
@@ -44,7 +67,9 @@
                     <input type="file" ng-model="user.avatar" id="avatar">
                 </label>
 			</div>
-			<button class="button button-block button-positive">Registrate</button>
+			<p>Tené en cuenta que para poder utilizar o brindar algún servicio informado en nuestra app tenés que ser mayor de 18 años.</p>
+			<button class="button button-block button-positive" ng-disabled="edad<18">Registrate</button>
 		</form>
+		
 	</ion-content>
 </ion-view>

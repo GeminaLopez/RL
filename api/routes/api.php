@@ -28,23 +28,34 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group( function () {
     // Perfil
-    Route::get('/perfil', 'API\\UsuarioController@perfil');
-    /*Route::put('/perfil', 'API\\UsuarioController@editar');
-    Route::patch('/perfil', 'API\\UsuarioController@editarPassword');
-    Route::get('/perfil/getNoAmigos', 'API\\UsuarioController@getNoAmigos');
+    Route::put('/perfil', 'API\\UsuariosController@editarPerfilUsuario');
+    Route::patch('/perfil', 'API\\UsuariosController@editarPasswordUsuario');
+    /*Route::get('/perfil/getNoAmigos', 'API\\UsuarioController@getNoAmigos');
     Route::get('/perfil/getAmigos', 'API\\UsuarioController@getAmigos');
     Route::post('/perfil/agregarAmigo', 'API\\UsuarioController@agregarAmigo');
     Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuarioController@eliminarAmigo');*/
+
 });
 
+// Usuarios
+Route::get('usuarios', 'API\\UsuariosController@index');
+Route::post('usuarios', 'API\\UsuariosController@nuevoUsuario');
+/*Route::get('usuarios/{id}', 'API\\UsuariosController@detallesUsuario');
+Route::delete('usuarios/{id}', 'API\\UsuariosController@eliminarUsuario');
+Route::put('usuarios/{id}/Password', 'API\\UsuariosController@editarPasswordUsuario');
+Route::put('usuarios/{id}/Perfil', 'API\\UsuariosController@editarPerfilUsuario');*/
+
 // Ciudad
-Route::resource('ciudad', 'API\\CiudadesController');
+Route::get('ciudad', 'API\\CiudadesController@index');
 Route::get('ciudad/{id}', 'API\\CiudadesController@traerCiudadPorID');
+
+// Genero
+Route::get('genero', 'API\\GenerosController@index');
+Route::get('genero/{id}', 'API\\GenerosController@traerGeneroPorID');
 
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
       
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'AuthController@logout');

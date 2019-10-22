@@ -6,7 +6,8 @@ angular.module('RedLight.controllers')
 	'$state',
 	'Auth',
 	'Ciudad',
-	function($scope, $ionicPopup, $state, Auth, Ciudad) {
+	'Genero',
+	function($scope, $ionicPopup, $state, Auth, Ciudad, Genero) {
 		$scope.user = {
 			email: null,
 			password: null
@@ -15,8 +16,11 @@ angular.module('RedLight.controllers')
 		Ciudad.todas().then(function(response){
 			$scope.ciudades = response.data;
 		});
-		
 
+		Genero.todos().then(function(response){
+			$scope.generos = response.data;
+		});
+		
 		$scope.login = function(user) {
 			Auth.login(user).then(function(respuesta) {
 				if(respuesta.status == 1 ) {
@@ -37,11 +41,10 @@ angular.module('RedLight.controllers')
 		};
 
 		$scope.registro = function(user){
-
-			let avatar = document.getElementById('avatar');
+			//let avatar = document.getElementById('avatar');
 			
 			// valido si cargaron la imagen para convertirla en base64
-            if(avatar.files.length == 0){                
+            /*if(avatar.files.length == 0){                
                 registro(user);               
             } else{
                 // convierto la imagen a base64 para guardarla en la base
@@ -53,8 +56,10 @@ angular.module('RedLight.controllers')
                     registro(user);
                 });
                 
-			}
+			}*/
 			
+			registro(user);
+
 			function registro(user){
 				Auth.registro(user).then(function(respuesta){
 					if(respuesta.status == 1 ){
@@ -73,6 +78,11 @@ angular.module('RedLight.controllers')
 					}
 				}) 
 			}
+		}
+
+		$scope.calcularEdad = function(fecha_nac){ 
+			var ageDifMs = Date.now() - fecha_nac.getTime();
+			$scope.edad = Math.floor(ageDifMs / 1000 / 60 / 60 / 24 / 365);
 		}
 	}
 ]);
