@@ -9,7 +9,7 @@ angular.module('RedLight.controllers')
 	function($scope, $stateParams, Usuario, $ionicPopup,SERVER) {
 		$scope.mensajes = [];
 
-		$scope.api_server = SERVER+'storage/';
+		$scope.api_server = SERVER;
 		
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes.
 		$scope.$on('$ionicView.beforeEnter', function() {

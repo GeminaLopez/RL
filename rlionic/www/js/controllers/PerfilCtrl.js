@@ -21,7 +21,7 @@ angular.module('RedLight.controllers')
 			fecha_nac: null
 		};
 
-		$scope.api_server = SERVER+'storage/';
+		$scope.api_server = SERVER;
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los datos del usuario.
 		$scope.$on('$ionicView.beforeEnter', function() {

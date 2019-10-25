@@ -6,7 +6,7 @@ angular.module('RedLight.controllers')
 	'SERVER',
 	function($scope,Post,SERVER) {
 		$scope.posts = [];
-		$scope.api_server = SERVER+'storage/';
+		$scope.api_server = SERVER;
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los posts.
 		$scope.$on('$ionicView.beforeEnter', function() {

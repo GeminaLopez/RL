@@ -13,7 +13,7 @@ angular.module('RedLight.controllers')
 		$scope.amigos = [];
 		$scope.noAmigos = [];
 
-		$scope.api_server = SERVER+'storage/';
+		$scope.api_server = SERVER;
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los amigos y no amigos.
 		$scope.$on('$ionicView.beforeEnter', function() {

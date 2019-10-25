@@ -7,7 +7,7 @@ angular.module('RedLight.controllers')
 	'SERVER',
 	function($scope,Usuario, Post, SERVER) {
 		$scope.posts = [];
-		$scope.api_server = SERVER+'storage/';
+		$scope.api_server = SERVER;
 
 		Usuario.getLoggedUser().then(function(response) {
 			let responsePayload = response.data;
