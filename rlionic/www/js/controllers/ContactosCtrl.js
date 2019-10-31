@@ -63,8 +63,8 @@ angular.module('RedLight.controllers')
 		// funcion agregar amigo, recibe como parametro el id del usuario a agregar
 		$scope.agregarAmigo = function(id) {
 			Usuario.agregarAmigo(id).then(function(response) {
-				console.log(response);
-				console.log($scope.user['id_user']);
+				//console.log(response);
+				//console.log($scope.user['id_user']);
 				let responseInfo = response.data;
 				if(responseInfo.status == 1) {
 					Usuario.getAmigos($scope.user['id_user']).then(function(response) {

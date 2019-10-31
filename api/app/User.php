@@ -140,4 +140,13 @@ class User extends Authenticatable
         return $this->hasMany(Comentario::class, 'id_user', 'id_user');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        // relación inversa del 1 a muchos
+        return $this->hasMany(Post::class, 'id_user', 'id_user');
+    }
+
 }

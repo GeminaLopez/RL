@@ -4,16 +4,16 @@
 
       <div class="list" ng-repeat="comentario in comentarios">
         <div class="item item-avatar">
-          <img alt="Foto de Perfil" ng-src="{{api_server+comentario.avatar}}"/>
-          <h2>{{comentario.fkUsuarios}}</h2>
-          <p>{{comentario.fecha_publicacion}}</p>
-          <p>{{comentario.texto}}</p>
+          <img alt="Foto de Perfil de {{comentario.users[0].nombre}}" ng-src="{{api_server+comentario.users[0].avatar}}"/>
+          <h2>{{comentario.users[0].nombre}}</h2>
+          <p>{{comentario.created_at}}</p>
+          <p>{{comentario.comentario}}</p>
           
         </div>
       </div>
       <div ng-if="comentarios.length == 0">
           <p>Este post aún no tiene comentarios. Sé el primero en dejarlo. Hacé click en el botón 'Comentar'</p>
       </div>
-      <a class="button button-block button-positive" href="#/tab/comentarios/nuevo/{{fkPosts}}">Comentar</a>
+      <a class="button button-block button-positive" href="#/tab/comentarios/nuevo/{{id_post}}">Comentar</a>
   </ion-content>
 </ion-view>

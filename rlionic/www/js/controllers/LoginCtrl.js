@@ -73,7 +73,7 @@ angular.module('RedLight.controllers')
 			
 			function registro(user){
 				Auth.registro(user).then(function(respuesta){
-					console.log(respuesta);
+					//console.log(respuesta);
 					if(respuesta.status == 1 ){
 						$ionicPopup.alert({
 							title: 'Éxito',

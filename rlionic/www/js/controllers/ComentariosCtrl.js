@@ -4,18 +4,18 @@ angular.module('RedLight.controllers')
 	'$scope',
 	'$stateParams',
 	'Comentario',
-	'API_SERVER',
-	function($scope, $stateParams, Comentario, API_SERVER) {
+	'SERVER',
+	function($scope, $stateParams, Comentario, SERVER) {
 		$scope.comentario = {
-			id: null,
-			fkUsuarios: null,
-			fkPosts: null,
+			id_comentario: null,
+			id_user: null,
+			id_post: null,
 			texto: null
 		};
 
-		$scope.fkPosts = $stateParams.id;
+		$scope.id_post = $stateParams.id;
 
-		$scope.api_server = API_SERVER+'/';
+		$scope.api_server = SERVER;
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los comentarios.
 		$scope.$on('$ionicView.beforeEnter', function() {

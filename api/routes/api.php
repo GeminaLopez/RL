@@ -13,19 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-
-// Esto lo vamos a necesitar para CORS, eventualmente.
-//Route::options('/{any}', function() {return '';})->where('any', '.*');
-
-// primer parametro la ruta
-// segundo parametro el controlador
-// tercer parametro que use el middleware
-//Route::resource('/ciudad', 'CiudadesController', ['middleware' => 'auth:api']);
-
 Route::middleware('auth:api')->group( function () {
     // Perfil
     Route::put('/perfil', 'API\\UsuariosController@editarPerfilUsuario');
@@ -35,15 +22,20 @@ Route::middleware('auth:api')->group( function () {
     Route::post('/perfil/agregarAmigo', 'API\\UsuariosController@agregarAmigo');
     Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuariosController@eliminarAmigo');
 
+    // Comentarios
+    Route::get('comentarios', 'API\\ComentariosController@index');
+    Route::post('comentarios', 'API\\ComentariosController@nuevoComentario');
+    Route::get('comentarios/{id}', 'API\\ComentariosController@detalleComentario');
+
+    // Posts
+    Route::get('posts', 'API\\PostsController@index');
+    Route::post('posts', 'API\\PostsController@nuevoPost');
+
 });
-
-
 
 // Usuarios
 Route::get('usuarios', 'API\\UsuariosController@index');
 Route::post('usuarios', 'API\\UsuariosController@nuevoUsuario');
-/*Route::get('usuarios/{id}', 'API\\UsuariosController@detallesUsuario');
-Route::delete('usuarios/{id}', 'API\\UsuariosController@eliminarUsuario');*/
 
 // Ciudad
 Route::get('ciudad', 'API\\CiudadesController@index');
@@ -53,12 +45,12 @@ Route::get('ciudad/{id}', 'API\\CiudadesController@traerCiudadPorID');
 Route::get('genero', 'API\\GenerosController@index');
 Route::get('genero/{id}', 'API\\GenerosController@traerGeneroPorID');
 
-
+// Auth - Login
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
       
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-    });   
+    }); 
 });

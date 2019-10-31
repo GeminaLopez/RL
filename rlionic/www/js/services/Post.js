@@ -9,7 +9,8 @@ angular.module('RedLight.services')
 			todos: function() {
 				return $http.get(API_SERVER + '/posts',{
 					headers:{
-						'Access-Control-Allow-Origin': '*'
+						'Access-Control-Allow-Origin': '*',
+						'Authorization': Auth.getToken()
 					}
 				});
 			},
@@ -17,7 +18,7 @@ angular.module('RedLight.services')
 				return $http.get(API_SERVER + '/posts/amigos',{
 					headers: {
 						'Access-Control-Allow-Origin': '*',
-						'X-Token': Auth.getToken()
+						'Authorization': Auth.getToken()
 					}
 				});
 			},
@@ -25,7 +26,7 @@ angular.module('RedLight.services')
 				return $http.post(API_SERVER + '/posts', datos, {
 					headers: {
 						'Access-Control-Allow-Origin': '*',
-						'X-Token': Auth.getToken()
+						'Authorization': Auth.getToken()
 					}
 				});
 			}			
