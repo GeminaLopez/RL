@@ -36,6 +36,7 @@ Route::middleware('auth:api')->group( function () {
     // Posts
     Route::get('posts', 'API\\PostsController@index');
     Route::post('posts', 'API\\PostsController@nuevoPost');
+    Route::delete('posts', 'API\\PostsController@eliminarPost');
 
 });
 

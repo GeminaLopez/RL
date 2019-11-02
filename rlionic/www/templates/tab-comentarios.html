@@ -1,7 +1,6 @@
-<ion-view view-title="Home">
+<ion-view view-title="Post">
   <ion-content class="padding">
       <h2>Comentarios del post </h2>
-
       <div class="list" ng-repeat="comentario in comentarios">
         <div class="item item-avatar">
           <img alt="Foto de Perfil de {{comentario.users[0].nombre}}" ng-src="{{api_server+comentario.users[0].avatar}}"/>

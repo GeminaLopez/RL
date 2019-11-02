@@ -20,6 +20,11 @@ angular.module('RedLight.services')
 				return $http.post(API_SERVER + '/posts', datos, {
 					credentials: 'include'
 				});
+			},
+			eliminarPost: function(id) {
+				return $http.delete(API_SERVER + '/posts/', + id, {
+					credentials: 'include'			
+				});
 			}			
 		};
 	}

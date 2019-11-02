@@ -1,3 +1,17 @@
+/*
+
+colores
+    rojo            #ff0000    
+    naranja         #ff5a00
+    amarillo maiz   #ff9a00
+    amarillo        #ffce00
+
+*/
+
+a{
+    color:#ff5a00;
+}
+
 .alert{
     padding: 1em;
     border: 1px solid transparent;
@@ -17,4 +31,36 @@
 
 .item-input input[type="file"]{
     display: block;
+}
+
+.bar.bar-stable .title {
+    color: white;
+}
+
+.bar.bar-stable, .tabs {
+    border-color: #ac3c00;
+    background-color: #ff5a00;
+    color: white;    
+}
+
+.bar-stable .button.button-clear {
+    color: white;
+}
+.button-positive{
+    background-color: #ff9a00 !important;
+}
+
+.bar-stable .button {
+    border-color: transparent;
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+    margin-right: 1em;
+}
+
+ion-tabs.tabs-color-active-positive .tab-item {
+    color: white; 
+}
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated {
+    background-color: rgba(255,154,0,.5);
+    color: white;
 }

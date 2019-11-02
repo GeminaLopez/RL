@@ -30,4 +30,15 @@ class PostsController extends Controller
             'status' => 1,
             'success' => true]);
     }
+
+    /**
+	 * elimina un post.
+	 *
+	 */
+	public function eliminarPost($idPost)
+	{
+        $post = Post::findOrFail($idPost);
+        $post->delete($idPost);
+        return response()->json(['status' => 1]);
+	}
 }

@@ -14,6 +14,7 @@ angular.module('RedLight.controllers')
 		};
 
 		Ciudad.todas().then(function(response){
+			//console.log(response.data);
 			$scope.ciudades = response.data;
 		});
 
