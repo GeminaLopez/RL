@@ -23,7 +23,16 @@ angular.module('RedLight.services')
 						// Info errónea
 						return responsePayload;
 					}
-				}).catch(() => console.log("Can’t access response. Blocked by browser?"));
+				}, function(err) {
+					if( err.data.status == 401)
+					{
+						return err.data;
+					}
+					else{
+						// para los errores de validacion del form
+						return err.data.errors;
+					}
+				});
 			},
 			registro: function(user){
 				return $http.post(API_SERVER + '/usuarios', user,{

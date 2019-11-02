@@ -53,10 +53,10 @@ Route::get('genero/{id}', 'API\\GenerosController@traerGeneroPorID');
 
 // Auth - Login
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'AuthController@login');
+    Route::post('login', 'API\\AuthController@login');
       
     Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
+        Route::get('logout', 'API\\AuthController@logout');
+        Route::get('user', 'API\\AuthController@user');
     }); 
 });
