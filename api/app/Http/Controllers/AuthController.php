@@ -22,24 +22,17 @@ class AuthController extends Controller
     {
         $request->validate(User::$rulesLogin, User::$errorMessagesLogin);
         $credentials = request(['email', 'password']);
-        if (!Auth::attempt($credentials)) {
+        if (!$token = Auth::attempt($credentials)) {
             return response()->json([
                 'status' => 401,
                 'mensaje' => 'Credenciales no válidas'], 401);
         }
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        //if ($request->remember_me) {
-        $token->expires_at = Carbon::now()->addWeeks(1);
-        //}
-        $token->save();
+        
         return response()->json([
             'status' => 1,
-            'access_token' => $tokenResult->accessToken,
-            'token_type'   => 'Bearer',
-            'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
-        ]);
+            'access_token' => $token
+        ])->withCookie('token', $token, 3600, '/', null, false, true);
     }
 
     public function logout(Request $request)

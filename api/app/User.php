@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     /** @var string La tabla. */
     protected $table = "users";
@@ -147,6 +147,29 @@ class User extends Authenticatable
     {
         // relación inversa del 1 a muchos
         return $this->hasMany(Post::class, 'id_user', 'id_user');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        // Este método debe retornar el valor del campo de la PK.
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        // Debemos retornar un array con los claims adicionales. Por
+        // defecto, podemos retornar un array vacío.
+        return [];
     }
 
 }

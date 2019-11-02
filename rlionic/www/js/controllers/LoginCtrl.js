@@ -10,8 +10,7 @@ angular.module('RedLight.controllers')
 	function($scope, $ionicPopup, $state, Auth, Ciudad, Genero) {
 		$scope.user = {
 			email: null,
-			password: null,
-			avatar:null
+			password: null
 		};
 
 		Ciudad.todas().then(function(response){

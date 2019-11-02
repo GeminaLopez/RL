@@ -39,7 +39,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 })
 
 // Módulo permite el uso de subvistas.
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+	$httpProvider.defaults.withCredentials = true;
+
   	$stateProvider
  	 .state('tab', {
 		url: '/tab',
@@ -250,8 +253,8 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 })
 
 // Definimos la constante con la ruta de la api.
-//.constant('API_SERVER', 'http://localhost:8000/api')
-.constant('API_SERVER', 'https://gemlopez.space/public/api')
+.constant('API_SERVER', 'http://localhost:8000/api')
+//.constant('API_SERVER', 'https://gemlopez.space/public/api')
 // Definimos la constante con la ruta de la api.
-//.constant('SERVER', 'http://localhost:8000/');
-.constant('SERVER', 'https://gemlopez.space/public/');
+.constant('SERVER', 'http://localhost:8000/');
+//.constant('SERVER', 'https://gemlopez.space/public/');

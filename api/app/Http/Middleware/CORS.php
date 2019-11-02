@@ -18,7 +18,7 @@ class CORS
         // Este middleware simplemente va a agregar los headers para
         // CORS.
         return $next($request)
-            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Origin', 'http://localhost:8100')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
             ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Accept, X-Requested-With')
             ->header('Access-Control-Allow-Credentials', 'true');
