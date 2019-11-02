@@ -36,10 +36,7 @@ angular.module('RedLight.services')
 			},
 			registro: function(user){
 				return $http.post(API_SERVER + '/usuarios', user,{
-					headers:{
-						'Access-Control-Allow-Origin': '*'
-						
-					}
+					credentials: 'include'
 				}).then(function(response) {
 					console.log(response)
 					// Vamos a verificar si la petición del login tuvo éxito o no.
@@ -59,7 +56,8 @@ angular.module('RedLight.services')
 				return $http.get(API_SERVER + '/auth/user',{
 					headers:{
 						Authorization: 'Bearer ' + access_token
-					}
+					},
+					credentials: 'include'
 				}).then(function(response) {
 					// Vamos a verificar si la petición de get user tuvo éxito o no.
 					let responsePayload = response.data;

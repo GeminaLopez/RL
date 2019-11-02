@@ -8,98 +8,62 @@ angular.module('RedLight.services')
 		return {
 			getLoggedUser: function () {
 				return $http.get(API_SERVER + '/perfil', {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			editar: function(datos) {
 				return $http.put(API_SERVER + '/perfil', datos, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			editarPassword: function(datos) {
 				return $http.patch(API_SERVER + '/perfil', datos, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			getNoAmigos: function(id) {
 				return $http.get(API_SERVER + '/perfil/getNoAmigos/'+ id, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			getAmigos: function(id) {
 				return $http.get(API_SERVER + '/perfil/getAmigos/'+ id,{
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			agregarAmigo: function(id) {
 				return $http.post(API_SERVER + '/perfil/agregarAmigo', id, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			eliminarAmigo: function(id) {
 				return $http.delete(API_SERVER + '/perfil/eliminarAmigo/' + id, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}			
+					credentials: 'include'			
 				});
 			},
 			getMensajes: function() {
 				return $http.get(API_SERVER + '/mensajes/getMensajes',{
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			getChat: function(id) {
 				return $http.get(API_SERVER + '/mensajes/'+ id ,{
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			enviarMensaje: function(datos, id) {
 				return $http.post(API_SERVER + '/mensajes/'+ id, datos, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			getUsuarios:  function() {
 				return $http.get(API_SERVER + '/mensajes/getUsuarios', {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			crearMensaje: function(datos) {
 				return $http.post(API_SERVER + '/mensajes/nuevo', datos, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 		};

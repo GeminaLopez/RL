@@ -8,18 +8,12 @@ angular.module('RedLight.services')
 		return {
 			comentarioPorPost: function(id) {
 				return $http.get(API_SERVER + '/comentarios/' + id,{
-					headers:{
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			},
 			crear: function(datos) {
 				return $http.post(API_SERVER + '/comentarios', datos, {
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						'Authorization': Auth.getToken()
-					}
+					credentials: 'include'
 				});
 			}		
 		};

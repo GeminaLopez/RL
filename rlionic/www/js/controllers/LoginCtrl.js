@@ -34,6 +34,7 @@ angular.module('RedLight.controllers')
 				} else {
 					if(respuesta.status == 401)
 					{
+						$scope.errores = null;
 						$ionicPopup.alert({
 							title: 'Error',
 							template: 'Parece que las credenciales no coinciden con nuestros registros. Por favor, revisá que todo esté bien y probá de nuevo.'
