@@ -1,23 +1,33 @@
 <ion-view title="Editar mis datos">
 	<ion-content class="padding">
 		<h2>Editar mis datos</h2>
+
+		<div ng-if="errores">
+			<ul class="alert errors"> 
+				<li>Por favor revisá estos campos:</li>
+				<li ng-repeat="(key,val) in errores">
+						{{val[0]}}
+				</li>
+			</ul>
+		</div>
+
 		<div>
 			<form ng-submit="editar(user)">
 				<div class="list">
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Nombre:</span>
 						<input type="text" ng-model="user.nombre">
-						<div class="alert errors" ng-if="errores.nombre != null">{{ errores.nombre[0] }}</div>
+						<!--<div class="alert errors" ng-if="errores.nombre != null">{{ errores.nombre[0] }}</div>-->
 					</label>
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Apellido:</span>
 						<input type="text" ng-model="user.apellido">
-						<div class="alert errors" ng-if="errores.apellido != null">{{ errores.apellido[0] }}</div>
+						<!--<div class="alert errors" ng-if="errores.apellido != null">{{ errores.apellido[0] }}</div>-->
 					</label>
 					<label class="item item-input item-stacked-label">
 						<span class="input-label">Fecha de nacimiento</span>
 						<input type="date" ng-model="user.fecha_nac" ng-change="calcularEdad(user.fecha_nac)"/>
-						<div class="alert errors" ng-if="errores.fecha_nac != null">{{ errores.fecha_nac[0] }}</div>
+						<!--<div class="alert errors" ng-if="errores.fecha_nac != null">{{ errores.fecha_nac[0] }}</div>-->
 					</label>
 					<label class="item item-input item-select">
 						<div class="input-label">
@@ -25,7 +35,7 @@
 						</div>
 						<select ng-options="genero.id_genero as genero.genero for genero in generos" ng-model="user.id_genero">
 						</select>
-						<div class="alert errors" ng-if="errores.id_genero != null">{{ errores.id_genero[0] }}</div>
+						<!--<div class="alert errors" ng-if="errores.id_genero != null">{{ errores.id_genero[0] }}</div>-->
 					</label>
 					<label class="item item-input item-select">
 						<div class="input-label">
@@ -33,7 +43,7 @@
 						</div>
 						<select ng-options="ciudad.id_ciudad as ciudad.ciudad for ciudad in ciudades" ng-model="user.id_ciudad">
 						</select>
-						<div class="alert errors" ng-if="errores.id_ciudad != null">{{ errores.id_ciudad[0] }}</div>
+						<!--<div class="alert errors" ng-if="errores.id_ciudad != null">{{ errores.id_ciudad[0] }}</div>-->
 					</label>
 					<ul class="list">
 						<li class="item item-toggle">

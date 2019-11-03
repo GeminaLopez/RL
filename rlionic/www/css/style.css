@@ -24,7 +24,7 @@ a{
 }
 
 .imgPerfil{
-    width: 50%;
+    width: 30%;
     display: block;
     border-radius: 50%;
 }
@@ -37,7 +37,7 @@ a{
     color: white;
 }
 
-.bar.bar-stable, .tabs {
+.bar.bar-stable, .tabs, .tabs-striped .tabs {
     border-color: #ac3c00;
     background-color: #ff5a00;
     color: white;    
@@ -50,7 +50,10 @@ a{
     background-color: #ff9a00 !important;
 }
 
-.bar-stable .button {
+.bar-stable .button,
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active,
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active,
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
     border-color: transparent;
     background-color: rgba(255, 0, 0, 0.5);
     color: white;
