@@ -12,7 +12,7 @@ angular.module('RedLight.controllers')
 		$scope.api_server = SERVER;
 
 		// busco todas los usuarios para cargar el dropdown
-		Usuario.getUsuarios().then(function(exito){
+		Usuario.todosMenosLogged().then(function(exito){
 			$scope.usuarios = exito.data;
 		});
 		
@@ -34,13 +34,13 @@ angular.module('RedLight.controllers')
 							template: 'Oops! Hubo un error al grabar en nuestro servidor. Por favor, probá de nuevo.'
 						});
 					}
-					else{
-						$scope.errores = responseInfo.errores;
-						$ionicPopup.alert({
-							title: 'Error',
-							template: 'Por favor, revisá los campos del formulario.'
-						});
-					}
+				}).catch(function(err)
+				{
+					$scope.errores = err.data.errors;
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'Por favor, revisá los campos del formulario.'
+					});
 				});
 		};	
     }

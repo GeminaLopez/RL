@@ -39,13 +39,14 @@ angular.module('RedLight.controllers')
 							title: 'Error',
 							template: 'Oops! Hubo un error al grabar en nuestro servidor. Por favor, probá de nuevo.'
 						});
-					} else{
-						$scope.errores = responseInfo.errores;
-						$ionicPopup.alert({
-							title: 'Error',
-							template: 'Por favor, revisá los campos del formulario.'
-						});
 					}
+				}).catch(function(err)
+				{
+					$scope.errores = err.data.errors;
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'Por favor, revisá los campos del formulario.'
+					});
 				});
 		};
 

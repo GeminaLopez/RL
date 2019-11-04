@@ -8,7 +8,7 @@
 			<div class="item item-avatar">
 				<img alt="Foto de Perfil de {{mensaje.nombre}}" ng-src="{{api_server+mensaje.avatar}}"/>
 				<h3>{{ mensaje.nombre }} </h3>
-				<a class="button button-small button-positive" href="#/tab/mensajes/{{ mensaje.id }}">Ver Chat</a>
+				<a class="button button-small button-positive" href="#/tab/mensajes/{{ mensaje.id_user }}">Ver Chat</a>
 			</div>
 		</div>
 		<div ng-if="mensajes.length == 0">

@@ -21,12 +21,13 @@ Route::options('/{any}', function() {return '';})->where('any', '.*');
 
 Route::middleware('auth:api')->group( function () {
     // Perfil
-    Route::put('/perfil', 'API\\UsuariosController@editarPerfilUsuario');
-    Route::patch('/perfil', 'API\\UsuariosController@editarPasswordUsuario');
-    Route::get('/perfil/getNoAmigos/{id}', 'API\\UsuariosController@getNoAmigos');
-    Route::get('/perfil/getAmigos/{id}', 'API\\UsuariosController@getAmigos');
-    Route::post('/perfil/agregarAmigo', 'API\\UsuariosController@agregarAmigo');
-    Route::delete('/perfil/eliminarAmigo/{id}', 'API\\UsuariosController@eliminarAmigo');
+    Route::put('perfil', 'API\\UsuariosController@editarPerfilUsuario');
+    Route::patch('perfil', 'API\\UsuariosController@editarPasswordUsuario');
+    Route::get('perfil/getNoAmigos/{id}', 'API\\UsuariosController@getNoAmigos');
+    Route::get('perfil/getAmigos/{id}', 'API\\UsuariosController@getAmigos');
+    Route::post('perfil/agregarAmigo', 'API\\UsuariosController@agregarAmigo');
+    Route::delete('perfil/eliminarAmigo/{id}', 'API\\UsuariosController@eliminarAmigo');
+
 
     // Comentarios
     Route::get('comentarios', 'API\\ComentariosController@index');
@@ -36,7 +37,17 @@ Route::middleware('auth:api')->group( function () {
     // Posts
     Route::get('posts', 'API\\PostsController@index');
     Route::post('posts', 'API\\PostsController@nuevoPost');
-    Route::delete('posts', 'API\\PostsController@eliminarPost');
+    Route::delete('posts/{id}', 'API\\PostsController@eliminarPost');
+    Route::get('posts/amigos', 'API\\PostsController@postAmigos');
+
+    // Mensajes
+    Route::get('mensajes/getMensajes', 'API\\UsuariosController@getMensajes');
+    Route::get('mensajes/{id}', 'API\\UsuariosController@getChat');
+    Route::post('mensajes/nuevo', 'API\\UsuariosController@crearMensajeNuevo');
+    Route::post('mensajes/{id}', 'API\\UsuariosController@enviarMensaje');
+
+    //Usuarios
+    Route::get('usuarios/todosMenosLogged', 'API\\UsuariosController@todosMenosLogged');
 
 });
 

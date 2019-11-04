@@ -22,7 +22,7 @@ angular.module('RedLight.services')
 				});
 			},
 			eliminarPost: function(id) {
-				return $http.delete(API_SERVER + '/posts/', + id, {
+				return $http.delete(API_SERVER + '/posts/'+ id, {
 					credentials: 'include'			
 				});
 			}			

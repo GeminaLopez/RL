@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
     /** @var string La PK. */
     protected $primaryKey = 'id_user';
 
-    protected $dates = ['fecha_nac',];
+    protected $dates = ['fecha_nac'];
 
     /**
      * The attributes that are mass assignable.
@@ -128,6 +128,32 @@ class User extends Authenticatable implements JWTSubject
         'id_genero.required' => 'El usuario debe tener un género.',
         'id_genero.integer' => 'El género debe ser un número.',
         'id_genero.exists' => 'El género seleccionada no existe.'
+    ];
+
+     /** @var array Las reglas de validación en el envio de mensajes nuevo. */
+     public static $rulesMensajeNuevo = [
+        'mensaje' => 'required|min:3',
+        'id_user_2' => 'required|integer|exists:users'
+    ];
+
+    /** @var array Los mensajes de error de las $rulesEdicion en el envio de mensajes nuevo */
+    public static $errorMessagesMensajeNuevo = [
+        'mensaje.required' => 'El mensaje debe tener un valor.',
+        'mensaje.min' => 'El mensaje debe tener al menos :min caracteres.',
+        'id_user_2.required' => 'El mensaje debe tener un usuario.',
+        'id_user_2.integer' => 'El usuario debe ser un número.',
+        'id_user_2.exists' => 'El usuario seleccionado no existe.'
+    ];
+
+    /** @var array Las reglas de validación en el envio de mensajes chat. */
+    public static $rulesMensajeChat= [
+        'mensaje' => 'required|min:3'
+    ];
+
+    /** @var array Los mensajes de error de las $rulesEdicion en el envio de mensajes chat */
+    public static $errorMessagesMensajeChat = [
+        'mensaje.required' => 'El mensaje debe tener un valor.',
+        'mensaje.min' => 'El mensaje debe tener al menos :min caracteres.'
     ];
 
 

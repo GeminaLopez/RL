@@ -301,4 +301,144 @@ class UsuariosController extends Controller
 		}
 	}
 
+    /**
+	 * Obtiene todos los mensajes enviados al usuario
+	 *
+	 */
+	public function getMensajes()
+	{
+        $userId = Auth::user()->id_user;
+        $sql = "SELECT id_user,
+                CONCAT(u.nombre,' ', u.apellido) AS nombre,
+                u.avatar
+                FROM users u 
+                WHERE EXISTS ( SELECT 1 
+                            FROM mensajes m
+                            WHERE m.id_user_1 = u.id_user
+                            AND m.id_user_2 = ? 
+                        )
+                OR EXISTS ( SELECT 1
+                            FROM mensajes me
+                            WHERE me.id_user_2 = u.id_user
+                            AND me.id_user_1 = ? )";
+        
+        $stmt = DB::getPdo()->prepare($sql);
+        $stmt->execute([$userId,$userId]);
+        $mensajes = $stmt->fetchAll(\PDO::FETCH_CLASS, 'stdClass');
+
+       //$amigos = DB::select($sql,array($id,$id,$id));
+        //var_dump($result);
+        //die();
+
+        return response()->json($mensajes);
+    }
+
+    /**
+	 * Obtiene todos los mensajes enviados/recibos entre usuario logueado y otro usuario
+	 *
+	 */
+	public function getChat($id)
+	{
+        $userId = Auth::user()->id_user;
+        $sql = "SELECT u.id_user,
+                u.nombre,
+                u.apellido,
+                u.avatar,
+                m.mensaje,
+                m.created_at
+                from users u
+                inner join mensajes m on m.id_user_1 = u.id_user
+                where (m.id_user_1 = ? and m.id_user_2 = ?)
+                or (m.id_user_1 = ? and m.id_user_2 = ?)
+                order by m.created_at asc";
+        
+        $stmt = DB::getPdo()->prepare($sql);
+        $stmt->execute([$userId, $id, $id, $userId]);
+        $mensajes = $stmt->fetchAll(\PDO::FETCH_CLASS, 'stdClass');
+
+       //$amigos = DB::select($sql,array($id,$id,$id));
+        //var_dump($result);
+        //die();
+
+        return response()->json($mensajes);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function todosMenosLogged()
+    {
+        $userId = Auth::user()->id_user;
+        $usuarios = User::where('id_user','<>',$userId)->get();
+        return response()->json($usuarios);
+    }
+
+    /**
+	 * Crea un msj nuevo
+	 *
+	 */
+	public function crearMensajeNuevo(Request $request)
+	{
+        $userId = Auth::user()->id_user;
+
+        $request->validate(User::$rulesMensajeNuevo, User::$errorMessagesMensajeNuevo);
+
+        $input = $request->all();
+
+        $created_at = Carbon::now();
+        $updated_at = Carbon::now();
+
+        $query = "INSERT INTO mensajes (mensaje,id_user_1, id_user_2, created_at, updated_at) VALUES (:mensaje, :id_user_1, :id_user_2, :created_at, :updated_at)";
+        $stmt = DB::getPdo()->prepare($query);
+        $exito = $stmt->execute([
+            'mensaje'     => $input['mensaje'],
+            'id_user_1'   => $userId,
+            'id_user_2'   => $input['id_user_2'],
+            'created_at'  => $created_at,
+            'updated_at'  => $updated_at
+        ]);
+
+        if($exito) {
+            // Todo ok!
+            return response()->json(['status' => 1]);
+        } else {
+            // Todo mal :(
+            return response()->json(['status' => 0]);
+        }
+    }
+
+    /**
+	 * envia un msj de chat
+	 *
+	 */
+	public function enviarMensaje(Request $request, $id)
+	{
+        $userId = Auth::user()->id_user;
+
+        $request->validate(User::$rulesMensajeChat, User::$errorMessagesMensajeChat);
+
+        $input = $request->all();
+
+        $created_at = Carbon::now();
+        $updated_at = Carbon::now();
+
+        $query = "INSERT INTO mensajes (mensaje,id_user_1, id_user_2, created_at, updated_at) VALUES (:mensaje, :id_user_1, :id_user_2, :created_at, :updated_at)";
+        $stmt = DB::getPdo()->prepare($query);
+        $exito = $stmt->execute([
+            'mensaje'     => $input['mensaje'],
+            'id_user_1'   => $userId,
+            'id_user_2'   => $id,
+            'created_at'  => $created_at,
+            'updated_at'  => $updated_at
+        ]);
+
+        if($exito) {
+            // Todo ok!
+            return response()->json(['status' => 1]);
+        } else {
+            // Todo mal :(
+            return response()->json(['status' => 0]);
+        }
+    }
+
 }

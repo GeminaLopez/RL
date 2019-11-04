@@ -4,19 +4,26 @@
 			<h2>Nuevo Post</h2>
 		</div>
 
-		<div class="alert errors" ng-if="errores.id_user != null">{{ errores.id_user[0] }}</div>
+		<div ng-if="errores">
+			<ul class="alert errors"> 
+				<li>Por favor revisá:</li>
+				<li ng-repeat="(key,val) in errores">
+						{{val[0]}}
+				</li>
+			</ul>
+		</div>
 
 		<form ng-submit="grabar(post)">
 			<div class="list">
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Titulo</span>
 					<input type="text" placeholder="Escriba aquí el título" ng-model="post.titulo">
-					<div class="alert errors" ng-if="errores.titulo != null">{{ errores.titulo[0] }}</div>
+					<!--<div class="alert errors" ng-if="errores.titulo != null">{{ errores.titulo[0] }}</div>-->
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">¿Qué estás pensando?</span>
 					<textarea placeholder="Escriba aquí el texto de su post" ng-model="post.texto"></textarea>
-					<div class="alert errors" ng-if="errores.texto != null">{{ errores.texto[0] }}</div>
+					<!--<div class="alert errors" ng-if="errores.texto != null">{{ errores.texto[0] }}</div>-->
 				</label>
 			</div>
 			<button class="button button-block button-positive">Crear Post</button>

@@ -5,7 +5,8 @@ angular.module('RedLight.controllers')
 	'Post',
 	'SERVER',
 	'Auth',
-	function($scope, Post, SERVER, Auth) {
+	'$ionicPopup',
+	function($scope, Post, SERVER, Auth, $ionicPopup) {
 		$scope.posts = [];
 		$scope.api_server = SERVER;
 
@@ -25,11 +26,8 @@ angular.module('RedLight.controllers')
 					});
 				}
 			});
-		});
 
-		// Justo de antes de entrar a la vista, le pedimos que traiga los posts.
-		$scope.$on('$ionicView.beforeEnter', function() {
-	        Post.todos().then(function(response) {
+			Post.todos().then(function(response) {
 				// Resolve
 				$scope.posts = response.data
 			}, function() {
@@ -37,7 +35,6 @@ angular.module('RedLight.controllers')
 				console.log('Hubo un problema, no se pudo traer la información solicitada');
 			});
 		});	
-		
 		
 		// funcion agregar amigo, recibe como parametro el id del usuario a agregar
 		$scope.eliminarPost = function(id) {

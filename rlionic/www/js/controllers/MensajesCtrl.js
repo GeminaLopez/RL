@@ -7,12 +7,13 @@ angular.module('RedLight.controllers')
 	function($scope, Usuario,SERVER) {
 		$scope.mensajes = [];
 
-		$scope.api_server = SERVER+'/';
+		$scope.api_server = SERVER;
 		
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes.
 		$scope.$on('$ionicView.beforeEnter', function() {
 			Usuario.getMensajes().then(function(response) {
 				// Resolve
+				//console.log(response.data);
 				$scope.mensajes = response.data;
 			}, function() {
 				// Reject

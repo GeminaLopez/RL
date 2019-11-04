@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div ng-if="errores">
-			<ul class="errores"> 
+			<ul class="alert errors"> 
 				<li>Por favor revisá:</li>
 				<li ng-repeat="(key,val) in errores">
 						{{ key }}: {{val}}
@@ -21,7 +21,7 @@
 			<div class="list">
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Mensaje:</span>
-					<textarea id="mensaje" placeholder="Escribí aquí el mensaje que queres enviar" ng-model="mensaje.texto"></textarea>
+					<textarea id="mensaje" placeholder="Escribí aquí el mensaje que queres enviar" ng-model="mensaje.mensaje"></textarea>
 				</label>
 			</div>
 			<button class="button button-block button-positive">Enviar mensaje</button>

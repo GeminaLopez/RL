@@ -3,8 +3,7 @@ angular.module('RedLight.services')
 .factory('Usuario', [
 	'$http',
 	'API_SERVER',
-	'Auth',
-	function($http, API_SERVER, Auth) {
+	function($http, API_SERVER) {
 		return {
 			getLoggedUser: function () {
 				return $http.get(API_SERVER + '/perfil', {
@@ -56,8 +55,8 @@ angular.module('RedLight.services')
 					credentials: 'include'
 				});
 			},
-			getUsuarios:  function() {
-				return $http.get(API_SERVER + '/mensajes/getUsuarios', {
+			todosMenosLogged:  function() {
+				return $http.get(API_SERVER + '/usuarios/todosMenosLogged', {
 					credentials: 'include'
 				});
 			},
