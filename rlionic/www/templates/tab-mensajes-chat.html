@@ -3,9 +3,9 @@
 		<h2>Chat</h2>
 		<div class="list card" ng-repeat="mensaje in mensajes" > 
 			<div class="item item-avatar">
-				<img alt="Foto de Perfil de {{mensaje.nombre}}" ng-src="{{api_server+mensaje.avatar}}"/>
-				<h3>{{ mensaje.nombre }}</h3>
-				<span class="fechaDeEnvio">Enviado: {{mensaje.fecha}}</span> 
+				<img alt="Foto de Perfil de {{mensaje.nombre +' '+ mensaje.apellido}}" ng-src="{{api_server+mensaje.avatar}}"/>
+				<h3>{{ mensaje.nombre +' '+ mensaje.apellido }}</h3>
+				<span class="fechaDeEnvio">Enviado: {{mensaje.created_at}}</span> 
 				<p>{{mensaje.mensaje}}</p>
 			</div>
 		</div>
@@ -13,7 +13,7 @@
 			<ul class="alert errors"> 
 				<li>Por favor revisá:</li>
 				<li ng-repeat="(key,val) in errores">
-						{{ key }}: {{val}}
+						{{val[0]}}
 				</li>
 			</ul>
 		</div>

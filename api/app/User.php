@@ -133,16 +133,16 @@ class User extends Authenticatable implements JWTSubject
      /** @var array Las reglas de validación en el envio de mensajes nuevo. */
      public static $rulesMensajeNuevo = [
         'mensaje' => 'required|min:3',
-        'id_user_2' => 'required|integer|exists:users'
+        'id_user' => 'required|integer|exists:users'
     ];
 
     /** @var array Los mensajes de error de las $rulesEdicion en el envio de mensajes nuevo */
     public static $errorMessagesMensajeNuevo = [
         'mensaje.required' => 'El mensaje debe tener un valor.',
         'mensaje.min' => 'El mensaje debe tener al menos :min caracteres.',
-        'id_user_2.required' => 'El mensaje debe tener un usuario.',
-        'id_user_2.integer' => 'El usuario debe ser un número.',
-        'id_user_2.exists' => 'El usuario seleccionado no existe.'
+        'id_user.required' => 'El mensaje debe tener un usuario.',
+        'id_user.integer' => 'El usuario debe ser un número.',
+        'id_user.exists' => 'El usuario seleccionado no existe.'
     ];
 
     /** @var array Las reglas de validación en el envio de mensajes chat. */

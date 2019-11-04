@@ -10,8 +10,8 @@
 
 		<div class="list card" ng-repeat="post in posts">
 			<div class="item item-avatar">
-			<img alt="Foto de Perfil de {{post.users[0].nombre}}" ng-src="{{api_server+post.users[0].avatar}}"/>
-			<h2>{{post.users[0].nombre}}</h2>
+			<img alt="Foto de Perfil de {{post.users[0].nombre +' ' + post.users[0].apellido}}" ng-src="{{api_server+post.users[0].avatar}}"/>
+			<h2>{{post.users[0].nombre + ' ' + post.users[0].apellido}}</h2>
 			<p>{{post.created_at}}</p>
 			</div>
 		

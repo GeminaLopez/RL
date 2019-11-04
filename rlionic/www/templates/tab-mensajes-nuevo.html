@@ -5,7 +5,7 @@
 			<ul class="alert errors"> 
 				<li>Por favor revisá:</li>
 				<li ng-repeat="(key,val) in errores">
-						{{ key }}: {{val}}
+						{{val[0]}}
 				</li>
 			</ul>
 		</div>
@@ -15,7 +15,7 @@
 					<div class="input-label">
 						Usuarios
 					</div>
-					<select ng-options="usuario.id_user as (usuario.nombre +' '+ usuario.apellido) for usuario in usuarios" ng-model="mensaje.id_user_2">
+					<select ng-options="usuario.id_user as (usuario.nombre +' '+ usuario.apellido) for usuario in usuarios" ng-model="mensaje.id_user">
 					</select>
 				</label>
 				<label class="item item-input item-stacked-label">

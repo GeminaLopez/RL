@@ -6,8 +6,8 @@
 		<h2>Publicaciones de amigos</h2>
 		<div class="list card" ng-repeat="post in postsAmigos" > 
 			<div class="item item-avatar">
-				<img alt="Foto de Perfil de {{post.users[0].nombre}}" ng-src="{{api_server+post.users[0].avatar}}"/>
-				<h2>{{post.users[0].nombre}}</h2>
+				<img alt="Foto de Perfil de {{post.nombre}}" ng-src="{{api_server+post.avatar}}"/>
+				<h2>{{post.nombre}}</h2>
 				<p>{{post.created_at}}</p>
 			</div>
 			<div class="item item-body">
@@ -20,7 +20,8 @@
 			</div>
 		</div>
 		<div ng-if="postsAmigos.length == 0">
-			<p>¿Aún no tenés amigos? Hacelo desde <a href="#/tab/contactos" class="subdued">aquí</a></p>
+			<p>No hay post por mostrar</p>
+			<p>Si aún no tenés amigos hacelo desde <a href="#/tab/contactos" class="subdued">aquí</a></p>
 		</div>
   	</ion-content>
 </ion-view>

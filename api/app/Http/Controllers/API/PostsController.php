@@ -55,7 +55,8 @@ class PostsController extends Controller
 
         $sql = "SELECT p.id_post,
                 titulo,
-                CONCAT(u.nombre,' ', u.apellido) AS id_user,
+                CONCAT(u.nombre,' ', u.apellido) AS nombre,
+                u.avatar,
                 texto,
                 p.created_at,
                 p.deleted_at

@@ -388,12 +388,13 @@ class UsuariosController extends Controller
         $created_at = Carbon::now();
         $updated_at = Carbon::now();
 
-        $query = "INSERT INTO mensajes (mensaje,id_user_1, id_user_2, created_at, updated_at) VALUES (:mensaje, :id_user_1, :id_user_2, :created_at, :updated_at)";
+        $query = "INSERT INTO mensajes (mensaje, id_user_1, id_user_2, created_at, updated_at)
+                  VALUES (:mensaje, :id_user_1, :id_user_2, :created_at, :updated_at)";
         $stmt = DB::getPdo()->prepare($query);
         $exito = $stmt->execute([
             'mensaje'     => $input['mensaje'],
             'id_user_1'   => $userId,
-            'id_user_2'   => $input['id_user_2'],
+            'id_user_2'   => $input['id_user'],
             'created_at'  => $created_at,
             'updated_at'  => $updated_at
         ]);

@@ -26,6 +26,8 @@ angular.module('RedLight.controllers')
 			Auth.login(user).then(function(respuesta) {
 				//console.log(respuesta);
 				if(respuesta.status == 1 ) {
+					user.email = '';
+					user.password = '';
 					$ionicPopup.alert({
 						title: 'Éxito',
 						template: 'Bienvenido/a! Disfrutá de Red Light!!'

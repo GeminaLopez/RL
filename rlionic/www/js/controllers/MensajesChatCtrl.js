@@ -27,6 +27,7 @@ angular.module('RedLight.controllers')
 				.then(function(response) {
 					let responseInfo = response.data;
 					if(responseInfo.status == 1) {
+						mensaje.mensaje = '';
 						Usuario.getChat($stateParams.id).then(function(response) {
 							// Resolve
 							$scope.mensajes = response.data;
