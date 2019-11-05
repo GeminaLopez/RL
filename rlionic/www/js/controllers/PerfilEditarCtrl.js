@@ -9,7 +9,8 @@ angular.module('RedLight.controllers')
 	'Genero',
 	'SERVER',
 	'Auth',
-	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, SERVER, Auth) {
+	'$ionicLoading',
+	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, SERVER, Auth, $ionicLoading) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
@@ -20,6 +21,11 @@ angular.module('RedLight.controllers')
 			fecha_nac: null,
 			password: null,
 		};
+
+		$ionicLoading.show({
+			template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+			noBackdrop: true
+		});
 
 		$scope.api_server = SERVER;
 
@@ -48,6 +54,8 @@ angular.module('RedLight.controllers')
 						brinda_servicio: response.brinda_servicio,	
 						fecha_nac: new Date(response.fecha_nac),
 					}
+
+					$ionicLoading.hide();
 				}
 				else{
 					$ionicPopup.alert({
@@ -88,9 +96,14 @@ angular.module('RedLight.controllers')
 			}
 			
 			function editar(user){
+				$ionicLoading.show({
+					template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+					noBackdrop: true
+				});
 				// Guardo los datos que el usuario editó
 				Usuario.editar(user).then(function(response) {
 					if(response.status == 200) {
+						$ionicLoading.hide();
 						$ionicPopup.alert({
 							title: 'Éxito!',
 							template: 'El usuario fue editado con éxito'

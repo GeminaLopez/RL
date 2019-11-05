@@ -27,7 +27,7 @@ class File
             $imageData = base64_decode($data[1]);
             
             $imageName = time() . $extension;
-            file_put_contents('../storage/app/public/imgs/'.$carpeta.'/' . $imageName, $imageData);
+            file_put_contents('../public/imgs/'.$carpeta.'/' . $imageName, $imageData);
 
             /*$path = $imageData->store('/public/imgs/usuarios');
             $path = explode('/',$path);

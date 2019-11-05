@@ -15,9 +15,16 @@ angular.module('RedLight.controllers')
 				// Resolve
 				//console.log(response.data);
 				$scope.mensajes = response.data;
-			}, function() {
-				// Reject
-				console.log('Hubo un problema, no se pudo traer la información solicitada');
+			}).catch(function(err) {
+				if(err.data.message === 'Unauthenticated.')
+				{
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'Tenés que estar logueado para poder acceder a esta pantalla.'
+					}).then(function() {
+						$state.go('tab.login');
+					});
+				}
 			});
 		});	
     }

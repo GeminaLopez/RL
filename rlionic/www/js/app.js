@@ -99,6 +99,10 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-comentarios.html',
 				controller: 'ComentariosCtrl'
 			}
+		},
+		data: {
+			requiresAuth: true,
+			redirectTo:'tab.perfil'
 		}
 	})
 
@@ -210,8 +214,7 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			}
 		},
 		data: {
-			requiresAuth: true,
-			redirectTo:'tab.perfil'
+			requiresAuth: true
 		}
 	})
 

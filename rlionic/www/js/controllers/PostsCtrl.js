@@ -6,7 +6,8 @@ angular.module('RedLight.controllers')
 	'SERVER',
 	'Auth',
 	'$ionicPopup',
-	function($scope, Post, SERVER, Auth, $ionicPopup) {
+	'$state',
+	function($scope, Post, SERVER, Auth, $ionicPopup, $state) {
 		$scope.posts = [];
 		$scope.api_server = SERVER;
 
@@ -30,9 +31,16 @@ angular.module('RedLight.controllers')
 			Post.todos().then(function(response) {
 				// Resolve
 				$scope.posts = response.data
-			}, function() {
-				// Reject
-				console.log('Hubo un problema, no se pudo traer la información solicitada');
+			}).catch(function(err) {
+				if(err.data.message === 'Unauthenticated.')
+				{
+					$ionicPopup.alert({
+						title: 'Error',
+						template: 'Tenés que estar logueado para poder acceder a esta pantalla.'
+					}).then(function() {
+						$state.go('tab.login');
+					});
+				}
 			});
 		});	
 		
