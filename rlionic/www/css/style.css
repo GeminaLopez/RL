@@ -77,3 +77,8 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     text-overflow: ellipsis;
     font-size: 15px;
 }
+
+.toggle.toggle-assertive input:checked + .track {
+    border-color: #ff9a00;
+    background-color: #ff9a00;
+}
