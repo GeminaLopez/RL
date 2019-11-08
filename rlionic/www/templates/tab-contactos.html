@@ -7,8 +7,8 @@
 		</div>
 		<div class="list card" ng-repeat="amigo in amigos" > 
 			<div class="item item-avatar">
-				<img alt="Foto de Perfil de {{amigo.nombre}}" ng-src="{{api_server+amigo.avatar}}"/>
-				<h3>{{ amigo.nombre }} </h3>
+				<img alt="Foto de Perfil de {{amigo.nombre + ' ' + amigo.apellido}}" ng-src="{{api_server+amigo.avatar}}"/>
+				<h3>{{ amigo.nombre + ' ' + amigo.apellido}} </h3>
 				<a class="button button-small button-positive" ng-click="eliminarAmigo({{amigo.id_user}})">Eliminar de mi lista de amigos</a>
 			</div>
 		</div>
