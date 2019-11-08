@@ -93,10 +93,6 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     overflow: unset;
 }
 
-.item{
-    border-color: white;
-}
-
 .item-image img:first-child, .item-image .list-img {
     padding-right: 1em;
 }
