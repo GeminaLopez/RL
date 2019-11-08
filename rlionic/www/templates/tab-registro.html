@@ -70,12 +70,16 @@
 					</li>		
 				</ul>		
 				<label class="item item-input item-stacked-label">
-					<span class="input-label avatar">Agregar avatar (opcional)</span>			
-					<input type="file" ng-model="user.avatar" class="avatar" custom-on-change="suboImagen" ng-click="suboImagen($event); $event.preventDefault();"/>
+					<span class="input-label avatar">Agregar avatar (opcional)</span>	
+					<div class="button button-block button-positive" id="btnIMG">
+						<i class="icon ion-image">	
+							<input type="file" ng-model="user.avatar" class="avatar" style="display:none"  custom-on-change="suboImagen" ng-click="suboImagen($event); $event.preventDefault();" />	
+						</i>
+					</div>
 
 					<div>Si no también podes tomarte una foto</div> 
 					
-					<button type="button" class="button button-positive" ng-click="tomarFoto()" ng-model="user.avatar" class="avatar">
+					<button type="button" class="button button-block button-positive" ng-click="tomarFoto()" ng-model="user.avatar" class="avatar">
 						<i class="icon ion-camera"></i>
 					</button>
 						
