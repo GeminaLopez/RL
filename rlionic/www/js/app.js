@@ -1,5 +1,5 @@
 // defino el modulo ng-app
-angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'])
+angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services','ngCordova'])
 .run(function($ionicPlatform, $ionicPopup, $rootScope, $state, Auth) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -36,6 +36,16 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 		  }
 	}
   });
+})
+
+.directive('customOnChange', function() {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+		var onChangeFunc = scope.$eval(attrs.customOnChange);
+		element.bind('change', onChangeFunc);
+		}
+	};
 })
 
 // Módulo permite el uso de subvistas.

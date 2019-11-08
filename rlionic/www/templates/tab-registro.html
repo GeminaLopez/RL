@@ -70,16 +70,26 @@
 					</li>		
 				</ul>		
 				<label class="item item-input item-stacked-label">
-					<span class="input-label avatar">Agrega una foto(opcional)</span>
-                    <div class="button button-positive">
+					<span class="input-label avatar">Agregar avatar (opcional)</span>			
+					<input type="file" ng-model="user.avatar" class="avatar" />
+
+					<div>Si no también podes tomarte una foto</div> 
+					
+					<button type="button" class="button button-positive" ng-click="tomarFoto()" ng-model="user.avatar" class="avatar">
 						<i class="icon ion-camera"></i>
-                    </div>
-                    <input type="file" ng-model="user.avatar" id="avatar">
-                </label>
+					</button>
+						
+					<div class="item-image">
+						<img ng-src="{{avatar}}">
+					</div>
+					
+				</label>
 			</div>
 			<p>Tené en cuenta que para poder utilizar o brindar algún servicio informado en nuestra app tenés que ser mayor de 18 años.</p>
-			<button class="button button-block button-positive" ng-disabled="edad<18" >Registrate</button>
+			<button type="submit" class="button button-block button-positive" ng-disabled="edad<18" >Registrate</button>
 		</form>
+
+		
 		
 	</ion-content>
 </ion-view>

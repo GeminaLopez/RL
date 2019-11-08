@@ -10,7 +10,8 @@ angular.module('RedLight.controllers')
 	'SERVER',
 	'Auth',
 	'$ionicLoading',
-	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, SERVER, Auth, $ionicLoading) {
+	'$cordovaCamera',
+	function($scope,$state,$ionicPopup, Usuario, Ciudad, Genero, SERVER, Auth, $ionicLoading, $cordovaCamera) {
 		$scope.user = {
 			nombre: null,
 			apellido: null,
@@ -76,23 +77,53 @@ angular.module('RedLight.controllers')
 			$scope.generos = resp.data;
 		});
 
+		$scope.tomarFoto = function(){
+			//console.log("hago click de foto");
+			var options = {
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA,
+				encodingType: Camera.EncodingType.JPEG,
+				allowEdit: true,
+				targetWidth: 300,
+				targetHeight: 300,
+				popoverOptions: CameraPopoverOptions,
+				quality: 85
+			};
+			$cordovaCamera.getPicture(options)
+			.then(function(data){
+				//console.log("mi foto es: " + angular.toJson(data));
+				$scope.avatar = 'data:image/jpeg;base64,' + data;
+			}, function(error){
+				//console.log("error de camara : " + angular.toJson(error))
+			});
+		}
+
 		$scope.editar = function (user){
-			let avatar = document.getElementById('avatar');
-			
-			// valido si cargaron la imagen para convertirla en base64
-            if(avatar.files.length == 0){                
-                editar(user);               
-            } else{
-                // convierto la imagen a base64 para guardarla en la base
-                const reader = new FileReader();            
-                reader.readAsDataURL(avatar.files[0]);
-                reader.addEventListener('load', function () {                   
-					let base64 = reader.result;
-					$scope.user.avatar = base64; 
-                    //$scope.user.avatar = avatar.files[0];                  
-                    editar(user);
-                });
-                
+			// se saco una foto
+			if ($scope.avatar === undefined || $scope.avatar === null)
+			{
+				// no se saco una foto, la cargo de galeria pero controlo que tenga el img
+				let avatar = document.getElementById('avatar');
+				
+				// valido si cargaron la imagen para convertirla en base64
+				if(avatar.files.length == 0){                
+					editar(user);               
+				} else{
+					// convierto la imagen a base64 para guardarla en la base
+					const reader = new FileReader();            
+					reader.readAsDataURL(avatar.files[0]);
+					reader.addEventListener('load', function () {                   
+						let base64 = reader.result;
+						$scope.user.avatar = base64; 
+						//$scope.user.avatar = avatar.files[0];                  
+						editar(user);
+					});
+					
+				}
+			}
+			else{
+				$scope.user.avatar = $scope.avatar;
+				editar(user);
 			}
 			
 			function editar(user){
