@@ -77,6 +77,37 @@ angular.module('RedLight.controllers')
 			$scope.generos = resp.data;
 		});
 
+		function setOptions(srcType) {
+			var options = {
+				quality: 85,
+				destinationType: Camera.DestinationType.DATA_URL,
+				// In this app, dynamically set the picture source, Camera or photo gallery
+				sourceType: srcType,
+				encodingType: Camera.EncodingType.JPEG,
+				mediaType: Camera.MediaType.PICTURE,
+				allowEdit: true,
+				correctOrientation: true,
+				targetWidth: 300,
+				targetHeight: 300
+			}
+			return options;
+		}
+
+		$scope.suboImagen = function(event){
+			event.preventDefault();
+			var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+			var options = setOptions(srcType);
+			//var func = createNewFileEntry;
+
+			$cordovaCamera.getPicture(options)
+			.then(function(data){
+				//console.log("mi foto es: " + angular.toJson(data));
+				$scope.avatar = 'data:image/jpeg;base64,' + data;
+			}, function(error){
+				//console.log("error de camara : " + angular.toJson(error))
+			});
+		}
+
 		$scope.tomarFoto = function(){
 			//console.log("hago click de foto");
 			var options = {
@@ -99,29 +130,8 @@ angular.module('RedLight.controllers')
 		}
 
 		$scope.editar = function (user){
-			// se saco una foto
-			if ($scope.avatar === undefined || $scope.avatar === null)
-			{
-				// no se saco una foto, la cargo de galeria pero controlo que tenga el img
-				let avatar = document.getElementById('avatar');
-				
-				// valido si cargaron la imagen para convertirla en base64
-				if(avatar.files.length == 0){                
-					editar(user);               
-				} else{
-					// convierto la imagen a base64 para guardarla en la base
-					const reader = new FileReader();            
-					reader.readAsDataURL(avatar.files[0]);
-					reader.addEventListener('load', function () {                   
-						let base64 = reader.result;
-						$scope.user.avatar = base64; 
-						//$scope.user.avatar = avatar.files[0];                  
-						editar(user);
-					});
-					
-				}
-			}
-			else{
+			// se saco una foto o la subio desde su galeria
+			if ($scope.avatar !== undefined || $scope.avatar !== null){
 				$scope.user.avatar = $scope.avatar;
 				editar(user);
 			}

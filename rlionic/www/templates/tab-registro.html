@@ -71,7 +71,7 @@
 				</ul>		
 				<label class="item item-input item-stacked-label">
 					<span class="input-label avatar">Agregar avatar (opcional)</span>			
-					<input type="file" ng-model="user.avatar" class="avatar" />
+					<input type="file" ng-model="user.avatar" class="avatar" custom-on-change="suboImagen" ng-click="suboImagen($event); $event.preventDefault();"/>
 
 					<div>Si no también podes tomarte una foto</div> 
 					
