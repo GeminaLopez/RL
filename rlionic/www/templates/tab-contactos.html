@@ -22,7 +22,7 @@
 		<div class="list card" ng-repeat="noAmigo in noAmigos" > 
 			<div class="item item-avatar">
 				<img alt="Foto de Perfil de {{noAmigo.nombre}}" ng-src="{{api_server+noAmigo.avatar}}"/>
-				<h3>{{ noAmigo.nombre }} </h3>
+				<h3>{{ noAmigo.nombre + ' ' + noAmigo.apellido}} </h3>
 				<a class="button button-small button-positive" ng-click="agregarAmigo({{noAmigo.id_user}})">Agregar a mi lista de amigos</a>
 			</div>
 		</div>

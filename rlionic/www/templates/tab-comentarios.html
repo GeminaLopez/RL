@@ -3,8 +3,8 @@
       <h2>Comentarios del post </h2>
       <div class="list" ng-repeat="comentario in comentarios">
         <div class="item item-avatar">
-          <img alt="Foto de Perfil de {{comentario.users[0].nombre + comentario.users[0].apellido}}" ng-src="{{api_server+comentario.users[0].avatar}}"/>
-          <h2>{{comentario.users[0].nombre + comentario.users[0].apellido}}</h2>
+          <img alt="Foto de Perfil de {{comentario.users[0].nombre +' '+ comentario.users[0].apellido}}" ng-src="{{api_server+comentario.users[0].avatar}}"/>
+          <h2>{{comentario.users[0].nombre +' '+ comentario.users[0].apellido}}</h2>
           <p>{{comentario.created_at}}</p>
           <p>{{comentario.comentario}}</p>
           
