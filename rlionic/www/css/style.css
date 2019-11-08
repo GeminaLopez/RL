@@ -82,3 +82,13 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     border-color: #ff9a00;
     background-color: #ff9a00;
 }
+
+#registro p{
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.bar .title{
+    overflow: unset;
+}

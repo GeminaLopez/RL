@@ -67,7 +67,30 @@ angular.module('RedLight.controllers')
                 reader.readAsDataURL(avatar.files[0]);
                 reader.addEventListener('load', function () {                   
 					let base64 = reader.result;
-					$scope.user.avatar = base64; 
+
+					//	resize				
+					$scope.resizeimage = function(base64)
+					{
+						var options = {
+							uri: base64,
+							folderName: 'RL Resize',
+							quality: 90,
+							width: 300,
+							height: 300
+						};
+
+						window.ImageResizer.resize(options,
+							function(image) {
+								$scope.user.avatar = image; 
+							// here you will get cropped pic
+						}, function() {
+							// failed: grumpy cat likes this function
+							console.log("fallo el resize");
+						});
+					},					
+					
+					
+					//$scope.user.avatar = base64; 
                     //$scope.user.avatar = avatar.files[0];                  
                     registro(user);
                 });
