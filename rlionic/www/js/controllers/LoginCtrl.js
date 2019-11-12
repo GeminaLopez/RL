@@ -20,7 +20,6 @@ angular.module('RedLight.controllers')
 			var options = {
 				quality: 85,
 				destinationType: Camera.DestinationType.DATA_URL,
-				// In this app, dynamically set the picture source, Camera or photo gallery
 				sourceType: srcType,
 				encodingType: Camera.EncodingType.JPEG,
 				mediaType: Camera.MediaType.PICTURE,
@@ -36,7 +35,6 @@ angular.module('RedLight.controllers')
 			event.preventDefault();
 			var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
 			var options = setOptions(srcType);
-			//var func = createNewFileEntry;
 
 			$cordovaCamera.getPicture(options)
 			.then(function(data){
@@ -48,17 +46,9 @@ angular.module('RedLight.controllers')
 		}
 
 		$scope.tomarFoto = function(){
-			//console.log("hago click de foto");
-			var options = {
-				destinationType: Camera.DestinationType.DATA_URL,
-				sourceType: Camera.PictureSourceType.CAMERA,
-				encodingType: Camera.EncodingType.JPEG,
-				allowEdit: true,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				quality: 85
-			};
+			var srcType = Camera.PictureSourceType.CAMERA;
+			var options = setOptions(srcType);
+
 			$cordovaCamera.getPicture(options)
 			.then(function(data){
 				//console.log("mi foto es: " + angular.toJson(data));
@@ -111,6 +101,7 @@ angular.module('RedLight.controllers')
 						});
 					}
 					else{
+						$ionicLoading.hide();
 						$scope.errores = respuesta;
 						$ionicPopup.alert({
 							title: 'Error',
@@ -126,8 +117,13 @@ angular.module('RedLight.controllers')
 		
 		$scope.registro = function (user){
 			// se saco una foto o la subio desde su galeria
-			if ($scope.avatar !== undefined || $scope.avatar !== null){
+			// valido que el avatar sea diferente a null - undefined
+			if ($scope.avatar){
 				$scope.user.avatar = $scope.avatar;
+				registro(user);
+			}
+			else{
+				$scope.user.avatar = "";
 				registro(user);
 			}
 			
@@ -147,6 +143,7 @@ angular.module('RedLight.controllers')
 							$state.go('tab.login');
 						});
 					} else {
+						$ionicLoading.hide();
 						$scope.errores = respuesta;
 						$ionicPopup.alert({
 							title: 'Error',

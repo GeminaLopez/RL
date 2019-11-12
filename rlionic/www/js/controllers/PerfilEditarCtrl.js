@@ -131,8 +131,12 @@ angular.module('RedLight.controllers')
 
 		$scope.editar = function (user){
 			// se saco una foto o la subio desde su galeria
-			if ($scope.avatar !== undefined || $scope.avatar !== null){
+			// valido que el avatar sea diferente a null - undefined
+			if ($scope.avatar){
 				$scope.user.avatar = $scope.avatar;
+				editar(user);
+			}
+			else{
 				editar(user);
 			}
 			
@@ -155,6 +159,7 @@ angular.module('RedLight.controllers')
 					}
 				}).catch(function(err)
 				{
+					$ionicLoading.hide();
 					$scope.errores = err.data.errors;
 					$ionicPopup.alert({
 						title: 'Error',
