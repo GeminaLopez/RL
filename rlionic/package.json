@@ -1,5 +1,5 @@
 {
-  "name": "RedLightIonic",
+  "name": "redlightionic",
   "version": "0.0.1",
   "description": "An Ionic project",
   "devDependencies": {
@@ -20,7 +20,8 @@
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-simple-image-resizer": "git+https://github.com/protonet/cordova-plugin-image-resizer.git",
     "cordova-plugin-whitelist": "1.3.4",
-    "info.protonet.imageresizer": "^0.1.1"
+    "info.protonet.imageresizer": "^0.1.1",
+    "leaflet": "^1.5.1"
   },
   "cordova": {
     "plugins": {

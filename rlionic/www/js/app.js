@@ -7,8 +7,8 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
+	  StatusBar.styleLightContent();
+	}
   });
 
   // Agrego la lógica para el bloqueo de usuarios no autorizados a ciertas vistas.   
@@ -38,20 +38,11 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
   });
 })
 
-.directive('customOnChange', function() {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attrs) {
-		var onChangeFunc = scope.$eval(attrs.customOnChange);
-		element.bind('change', onChangeFunc);
-		}
-	};
-})
-
 // Módulo permite el uso de subvistas.
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
 	$httpProvider.defaults.withCredentials = true;
+	$ionicConfigProvider.tabs.position("bottom");
 
   	$stateProvider
  	 .state('tab', {
@@ -256,6 +247,21 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			requiresAuth: true,
 			redirectTo:'tab.perfil'
 		}
+	})
+
+	// Creo la vista de mapa.
+	.state('tab.mapa', {
+		url: '/mapa',
+		views: {
+			'tab-mapa': {
+				templateUrl: 'templates/tab-mapa.html',
+				controller: 'MapaCtrl'
+			}
+		}/*,
+		data: {
+			requiresAuth: true,
+			redirectTo:'tab.perfil'
+		}*/
 	})
 
 	;

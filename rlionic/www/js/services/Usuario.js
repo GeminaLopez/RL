@@ -65,6 +65,11 @@ angular.module('RedLight.services')
 					credentials: 'include'
 				});
 			},
+			actualizarUbicacion: function(datos) {
+				return $http.post(API_SERVER + '/usuarios/actualizarUbicacion', datos, {
+					credentials: 'include'
+				});
+			},
 		};
 	}
 ]);

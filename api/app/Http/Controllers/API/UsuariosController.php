@@ -442,4 +442,17 @@ class UsuariosController extends Controller
         }
     }
 
+    /**
+	 * Actualiza ubicación
+	 *
+	 */
+	public function actualizarUbicacion(Request $request)
+	{
+        $userId = Auth::user()->id_user;
+        $input = $request->all();
+        $usuario = User::findOrFail($userId);
+        $usuario->update($input);
+        return response()->json(['status' => 1]);
+    }
+
 }

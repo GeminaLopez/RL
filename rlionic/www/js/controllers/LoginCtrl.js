@@ -7,10 +7,11 @@ angular.module('RedLight.controllers')
 	'Auth',
 	'Ciudad',
 	'Genero',
+	'Usuario',
 	'$cordovaCamera',
 	'$ionicLoading',
 	'$cordovaGeolocation',
-	function($scope, $ionicPopup, $state, Auth, Ciudad, Genero, $cordovaCamera, $ionicLoading, $cordovaGeolocation) {
+	function($scope, $ionicPopup, $state, Auth, Ciudad, Genero, Usuario, $cordovaCamera, $ionicLoading, $cordovaGeolocation) {
 		$scope.user = {
 			email: null,
 			password: null
@@ -83,8 +84,19 @@ angular.module('RedLight.controllers')
 			Auth.login(user).then(function(respuesta) {
 				//console.log(respuesta);
 				if(respuesta.status == 1 ) {
+					$scope.usuario = {
+						'ubicacion_lat' : $scope.user.ubicacion_lat,
+						'ubicacion_long' : $scope.user.ubicacion_long
+					}
+					Usuario.actualizarUbicacion($scope.usuario).then(function(respuesta){
+						if(respuesta.status == 1 ) {
+							console.log("se actualizo la geolocalización");
+							}
+					})
+					
 					user.email = '';
 					user.password = '';
+					
 					$ionicPopup.alert({
 						title: 'Éxito',
 						template: 'Bienvenido/a! Disfrutá de Red Light!!'
