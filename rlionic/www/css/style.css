@@ -101,3 +101,58 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     height: 100%;
     width: 100%;
 }
+
+.icon-foro-OFF{
+    background: url(/img/foroOFF.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-foro-ON{
+    background: url(/img/foroON.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-chat-OFF{
+    background: url(/img/chatOFF_v2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-chat-ON{
+    background: url(/img/chatON_v2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-mapa-OFF{
+    background: url(/img/mapaOFF.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.icon-mapa-ON{
+    background: url(/img/mapaON.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-perfil-OFF{
+    background: url(/img/perfilOFF.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.icon-perfil-ON{
+    background: url(/img/perfilON.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}

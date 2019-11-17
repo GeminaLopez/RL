@@ -257,11 +257,11 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 				templateUrl: 'templates/tab-mapa.html',
 				controller: 'MapaCtrl'
 			}
-		}/*,
+		},
 		data: {
 			requiresAuth: true,
 			redirectTo:'tab.perfil'
-		}*/
+		}
 	})
 
 	;
