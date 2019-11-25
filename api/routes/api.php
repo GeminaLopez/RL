@@ -46,9 +46,10 @@ Route::middleware('auth:api')->group( function () {
     Route::post('mensajes/nuevo', 'API\\UsuariosController@crearMensajeNuevo');
     Route::post('mensajes/{id}', 'API\\UsuariosController@enviarMensaje');
 
-    //Usuarios
+    // Usuarios
     Route::get('usuarios/todosMenosLogged', 'API\\UsuariosController@todosMenosLogged');
     Route::post('usuarios/actualizarUbicacion', 'API\\UsuariosController@actualizarUbicacion');
+    Route::get('usuarios/{id}', 'API\\UsuariosController@detallesUsuario');
 
 });
 

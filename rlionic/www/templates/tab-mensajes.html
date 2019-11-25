@@ -4,11 +4,13 @@
 	</ion-nav-buttons>
 	<ion-content class="padding">
 		<h2>Mis mensajes</h2>
-		<div class="list card" ng-repeat="mensaje in mensajes" > 
-			<div class="item item-avatar">
-				<img alt="Foto de Perfil de {{mensaje.nombre +' '+ mensaje.apellido}}" ng-src="{{api_server+mensaje.avatar}}"/>
-				<h3>{{ mensaje.nombre +' '+ mensaje.apellido}} </h3>
-				<a class="button button-small button-positive" href="#/tab/mensajes/{{ mensaje.id_user }}">Ver Chat</a>
+		<div ng-repeat="mensaje in mensajes">
+			<div class="list card">
+				<div class="item item-avatar">
+					<img alt="Foto de Perfil de {{ mensaje.nombre +' '+ mensaje.apellido }}" ng-src="{{api_server+mensaje.avatar}}"/>
+					<h3>{{ mensaje.nombre +' '+ mensaje.apellido}} </h3>
+					<a class="button button-small button-positive" href="#/tab/mensajes/{{ mensaje.id_user }}">Ver Chat</a>
+				</div>
 			</div>
 		</div>
 		<div ng-if="mensajes.length == 0">

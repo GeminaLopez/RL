@@ -70,6 +70,11 @@ angular.module('RedLight.services')
 					credentials: 'include'
 				});
 			},
+			detallesUsuario: function(id) {
+				return $http.get(API_SERVER + '/usuarios/'+ id ,{
+					credentials: 'include'
+				});
+			},
 		};
 	}
 ]);

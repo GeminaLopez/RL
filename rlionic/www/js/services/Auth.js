@@ -3,7 +3,8 @@ angular.module('RedLight.services')
 .factory('Auth', [
 	'$http',
 	'API_SERVER',
-	function($http, API_SERVER) {
+	'Firebase',
+	function($http, API_SERVER, Firebase) {
 		// Definimos unas propiedades "privadas" para almacenar los datos de la autenticación, como el token, el nombre de usuario, etc.
 		let access_token = null
 
@@ -18,6 +19,7 @@ angular.module('RedLight.services')
 						// Info correcta!
 						// Registro en las variables del servicio el token y los datos del usuario.
 						access_token = responsePayload.access_token;
+						Firebase.login(user);
 						return responsePayload;
 					} else {
 						// Info errónea
@@ -42,6 +44,9 @@ angular.module('RedLight.services')
 					// Vamos a verificar si la petición del login tuvo éxito o no.
 					let responsePayload = response.data;
 					if(responsePayload.status == 1) {
+						console.log(response.data.email);
+						console.log(response.data.password);
+						//Firebase.registro(user.email, user.);
 						// Vamos a verificar si la petición del login tuvo éxito o no.
 						return response.data;
 					}

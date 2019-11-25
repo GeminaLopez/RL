@@ -3,9 +3,9 @@
 		<h2>Chat</h2>
 		<div class="list card" ng-repeat="mensaje in mensajes" > 
 			<div class="item item-avatar">
-				<img alt="Foto de Perfil de {{mensaje.nombre +' '+ mensaje.apellido}}" ng-src="{{api_server+mensaje.avatar}}"/>
-				<h3>{{ mensaje.nombre +' '+ mensaje.apellido }}</h3>
-				<span class="fechaDeEnvio">Enviado: {{mensaje.created_at}}</span> 
+				<img alt="Foto de Perfil de {{getUser(mensaje.emisor).nombre + ' ' + getUser(mensaje.emisor).apellido}}" ng-src="{{api_server+getUser(mensaje.emisor).avatar}}"/>
+				<h3>{{ getUser(mensaje.emisor).nombre + ' ' + getUser(mensaje.emisor).apellido }}</h3>
+				<span class="fechaDeEnvio">Enviado: {{mensaje.fecha.toDate() | date : "dd/MM/y h:mm a" }}</span> 
 				<p>{{mensaje.mensaje}}</p>
 			</div>
 		</div>

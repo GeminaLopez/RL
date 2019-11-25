@@ -4,51 +4,64 @@ angular.module('RedLight.controllers')
 	'$scope',
 	'$stateParams',
 	'Usuario',
+	'Chat',
+	'Auth',
 	'$ionicPopup',
 	'SERVER',
-	function($scope, $stateParams, Usuario, $ionicPopup,SERVER) {
+	'$ionicLoading',
+	'$ionicScrollDelegate',
+	function($scope, $stateParams, Usuario, Chat, Auth, $ionicPopup, SERVER, $ionicLoading, $ionicScrollDelegate) {
 		$scope.mensajes = [];
+		$scope.authUser = {};
+		$scope.chatUser = {};
 
 		$scope.api_server = SERVER;
+		// info del usuario logueado
+		Auth.getUser().then(user => $scope.authUser = user);
+		// busco data del usuario con el cual estoy chateando.
+		Usuario.detallesUsuario($stateParams.id).then(function(response) {
+			let responseInfo = response.data;
+			if(response.status == 200) {
+				$scope.chatUser = responseInfo;
+			}
+		});
 		
+		$scope.getUser = function(id) {
+			if($scope.chatUser.id_user == id) {
+				return $scope.chatUser;
+			} else {
+				return $scope.authUser;
+			}
+		}
+
+		$ionicLoading.show({
+			template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+			noBackdrop: true
+		});
+
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes.
 		$scope.$on('$ionicView.beforeEnter', function() {
-			Usuario.getChat($stateParams.id).then(function(response) {
-				// Resolve
-				$scope.mensajes = response.data;
-			}, function() {
-				// Reject
-				console.log('Hubo un problema, no se pudo traer la información solicitada');
+			// obtengo los msj usando servicio de firebase
+			Chat.getMensajes($stateParams.id).then(function(response){
+				$ionicLoading.hide();
+				$scope.mensajes = response;
+				$ionicScrollDelegate.scrollBottom(true);
 			});
 		});
 	
 		$scope.grabar = function(mensaje) {
-			Usuario.enviarMensaje(mensaje, $stateParams.id)
-				.then(function(response) {
-					let responseInfo = response.data;
-					if(responseInfo.status == 1) {
-						mensaje.mensaje = '';
-						Usuario.getChat($stateParams.id).then(function(response) {
-							// Resolve
-							$scope.mensajes = response.data;
-						}, function() {
-							// Reject
-							console.log('Hubo un problema, no se pudo traer la información solicitada');
-						});
-					} else if(responseInfo.status == 0) {
-						$ionicPopup.alert({
-							title: 'Error',
-							template: 'Oops! Hubo un error al grabar en nuestro servidor. Por favor, probá de nuevo.'
-						});
-					}
-				}).catch(function(err)
-				{
-					$scope.errores = err.data.errors;
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Por favor, revisá los campos del formulario.'
-					});
+			$ionicLoading.show({
+				template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+				noBackdrop: true
+			});
+			Chat.sendMensaje(mensaje, $stateParams.id).then(function(){
+				Chat.getMensajes($stateParams.id).then(mensajes => {
+					$scope.mensajes = mensajes;
 				});
+				mensaje.mensaje = '';
+				$ionicScrollDelegate.scrollBottom(true);	
+				$ionicLoading.hide();	
+			});
 		};
 
     }

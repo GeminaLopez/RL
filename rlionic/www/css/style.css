@@ -117,14 +117,14 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 }
 
 .icon-chat-OFF{
-    background: url(/img/chatOFF_v2.png);
+    background: url(/img/chatOFF.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
 }
 
 .icon-chat-ON{
-    background: url(/img/chatON_v2.png);
+    background: url(/img/chatON.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -155,4 +155,15 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.item-input {
+    padding: 1em;
+}
+
+[nav-view-transition="android"] [nav-view="active"], 
+[nav-view-transition="android"][nav-view-direction="forward"] [nav-view="entering"],
+[nav-view-transition="android"][nav-view-direction="back"] [nav-view="leaving"] {
+    background-image: url(/img/trama.png);
+    background-size: cover;
 }

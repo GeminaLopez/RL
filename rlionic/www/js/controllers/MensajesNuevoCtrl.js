@@ -6,8 +6,10 @@ angular.module('RedLight.controllers')
 	'Usuario',
 	'$ionicPopup',
 	'SERVER',
-	function($scope, $state, Usuario, $ionicPopup, SERVER) {
-		$scope.mensajes = [];
+	'$ionicLoading',
+	'Chat',
+	'Auth',
+	function($scope, $state, Usuario, $ionicPopup, SERVER, $ionicLoading, Chat, Auth) {
 
 		$scope.api_server = SERVER;
 
@@ -17,7 +19,23 @@ angular.module('RedLight.controllers')
 		});
 		
 		$scope.grabar = function(mensaje) {
-			Usuario.crearMensaje(mensaje)
+			$ionicLoading.show({
+				template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+				noBackdrop: true
+			});
+			Chat.nuevoChat(mensaje).then(function(){
+				$ionicLoading.hide();
+				$ionicPopup.alert({
+					title: 'Éxito!',
+					template: 'El mensaje fue enviado exitosamente!'
+				}).then(function() {
+					// Lo redireccionamos al listado, pero luego de que cierren el mensaje.
+					$state.go('tab.mensajes');
+				});	
+				
+			});
+
+			/*Usuario.crearMensaje(mensaje)
 				.then(function(response) {
 					let responseInfo = response.data;
 					if(responseInfo.status == 1) {
@@ -41,7 +59,7 @@ angular.module('RedLight.controllers')
 						title: 'Error',
 						template: 'Por favor, revisá los campos del formulario.'
 					});
-				});
+				});*/
 		};	
     }
 
