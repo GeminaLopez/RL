@@ -9,15 +9,15 @@ angular.module('RedLight.controllers')
 	function($scope, Usuario,SERVER, Chat, $ionicLoading) {
 		$scope.mensajes = [];
 		$scope.api_server = SERVER;
-
-		$ionicLoading.show({
-			template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
-			noBackdrop: true
-		});
-		
+	
 
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes./*
 		$scope.$on('$ionicView.beforeEnter', function() {
+			$scope.mensajes = [];
+			$ionicLoading.show({
+				template: '<ion-spinner icon="android"></ion-spinner><br>Cargando...',
+				noBackdrop: true
+			});
 			Chat.getChats().then(function(response){
 				$ionicLoading.hide();
 				let info = [];
@@ -32,22 +32,6 @@ angular.module('RedLight.controllers')
 				});
 				$scope.mensajes = info;
 			});
-
-			/*Usuario.getMensajes().then(function(response) {
-				// Resolve
-				//console.log(response.data);
-				$scope.mensajes = response.data;
-			}).catch(function(err) {
-				if(err.data.message === 'Unauthenticated.')
-				{
-					$ionicPopup.alert({
-						title: 'Error',
-						template: 'Tenés que estar logueado para poder acceder a esta pantalla.'
-					}).then(function() {
-						$state.go('tab.login');
-					});
-				}
-			});*/
 		});	
     }
 

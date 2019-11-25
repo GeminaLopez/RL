@@ -41,8 +41,19 @@ angular.module('RedLight.services')
                 });
             },
 
-            registro: function(user){
-                
+            registro: function(email,password){
+                auth.createUserWithEmailAndPassword(email, password)
+                .catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode == 'auth/weak-password') {
+                        alert('The password is too weak.');
+                    } else {
+                        alert(errorMessage);
+                    }
+                    console.log(error);
+                });
             },
 
             getCollection: function(url) {
@@ -65,7 +76,16 @@ angular.module('RedLight.services')
                 return ref.get().then(function(querySnapshot) {
                     const salida = [];
                     querySnapshot.forEach(function(doc) {
-                        salida.push(doc.id.split("_")[1]);
+                        if(doc.id.indexOf(id_user) !== -1){
+                            if(doc.id.split("_")[1] == id_user)
+                            {
+                                salida.push(doc.id.split("_")[0]);
+                            }
+                            else{
+                                salida.push(doc.id.split("_")[1]);
+                            }
+                        }
+                        
                     });
                     return salida;
                 })

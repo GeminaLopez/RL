@@ -44,9 +44,7 @@ angular.module('RedLight.services')
 					// Vamos a verificar si la petición del login tuvo éxito o no.
 					let responsePayload = response.data;
 					if(responsePayload.status == 1) {
-						console.log(response.data.email);
-						console.log(response.data.password);
-						//Firebase.registro(user.email, user.);
+						Firebase.registro(user.email, user.password);
 						// Vamos a verificar si la petición del login tuvo éxito o no.
 						return response.data;
 					}
