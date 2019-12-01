@@ -42,11 +42,20 @@ angular.module('RedLight.controllers')
 		// Justo de antes de entrar a la vista, le pedimos que traiga los mensajes.
 		$scope.$on('$ionicView.beforeEnter', function() {
 			// obtengo los msj usando servicio de firebase
-			Chat.getMensajes($stateParams.id).then(function(response){
+			/*Chat.getMensajes($stateParams.id).then(function(response){
 				$ionicLoading.hide();
 				$scope.mensajes = response;
+				console.log("me trae los msjs" + response);
 				$ionicScrollDelegate.scrollBottom(true);
-			});
+			});*/
+			Chat.getMensajes($stateParams.id, function(response){
+					$ionicLoading.hide();
+					$scope.mensajes = response;
+					console.log("me trae los msjs" + response);
+					$ionicScrollDelegate.scrollBottom(true);
+				}
+			);
+			
 		});
 	
 		$scope.grabar = function(mensaje) {
@@ -55,9 +64,9 @@ angular.module('RedLight.controllers')
 				noBackdrop: true
 			});
 			Chat.sendMensaje(mensaje, $stateParams.id).then(function(){
-				Chat.getMensajes($stateParams.id).then(mensajes => {
+				/*Chat.getMensajes($stateParams.id).then(mensajes => {
 					$scope.mensajes = mensajes;
-				});
+				});*/
 				mensaje.mensaje = '';
 				$ionicScrollDelegate.scrollBottom(true);	
 				$ionicLoading.hide();	

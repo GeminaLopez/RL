@@ -38,9 +38,9 @@ angular.module('RedLight.services')
             },
 
             // obtiene msj de una charla "ver chat"
-            getMensajes: function(id) {
+            getMensajes: function(id, callback) {
                 let user, idChat;
-                return Auth.getUser().then(data => {
+                Auth.getUser().then(data => {
                     user = data;
                     if(user.id_user > id) {
                         idChat = id + "_" + user.id_user;
@@ -48,7 +48,10 @@ angular.module('RedLight.services')
                         idChat = user.id_user + "_" + id;
                     }
 
-                    return Firebase.getCollection('chat/' + idChat + '/mensajes');
+                    Firebase.getCollection('chat/' + idChat + '/mensajes', function(response){
+                        callback(response);
+                    })
+                    //return callback(Firebase.getCollection('chat/' + idChat + '/mensajes'));
                 });
             },
             sendMensaje: function(mensaje, id) {

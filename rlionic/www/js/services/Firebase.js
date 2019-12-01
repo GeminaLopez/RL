@@ -56,10 +56,10 @@ angular.module('RedLight.services')
                 });
             },
 
-            getCollection: function(url) {
+            /*getCollection: function(url) {
                 const ref = store.collection(url);
 
-                return ref.orderBy('fecha').get().then(snapshot => {
+                return ref.orderBy('fecha').onSnapshot(snapshot => {
                     const salida = [];
 
                     snapshot.forEach(doc => {
@@ -67,6 +67,20 @@ angular.module('RedLight.services')
                     });
 
                     return salida;
+                });
+            },*/
+
+            getCollection: function(url, callback) {
+                const ref = store.collection(url);
+
+                ref.orderBy('fecha').onSnapshot(snapshot => {
+                    const salida = [];
+
+                    snapshot.forEach(doc => {
+                        salida.push(doc.data());
+                    });
+
+                    callback(salida);
                 });
             },
 
