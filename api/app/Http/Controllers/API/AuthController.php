@@ -31,8 +31,13 @@ class AuthController extends Controller
         $user = $request->user();
         
         return response()->json([
-            'status' => 1,
-            'access_token' => $token
+            'data' => [
+                'id' => $user->id_user,
+                'email' => $user->email,
+                'usuario' => $user->nombre,
+                'ttl' => time() + (3600)
+            ],
+            'status' => 1
         ])->withCookie('token', $token, 3600, '/', null, false, true);
     }
 

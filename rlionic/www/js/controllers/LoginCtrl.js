@@ -83,7 +83,7 @@ angular.module('RedLight.controllers')
 		$scope.login = function(user) {
 			Auth.login(user).then(function(respuesta) {
 				//console.log(respuesta);
-				if(respuesta.status == 1 ) {
+				if(respuesta.data !== undefined) {
 					$scope.usuario = {
 						'ubicacion_lat' : $scope.user.ubicacion_lat,
 						'ubicacion_long' : $scope.user.ubicacion_long

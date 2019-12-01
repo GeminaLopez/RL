@@ -6,24 +6,60 @@ angular.module('RedLight.services')
 	'Firebase',
 	function($http, API_SERVER, Firebase) {
 		// Definimos unas propiedades "privadas" para almacenar los datos de la autenticación, como el token, el nombre de usuario, etc.
-		let access_token = null
+		//let access_token = null
+
+		let userData = {
+			id: null,
+			email: null,
+			usuario: null,
+			ttl: null,
+		};
+
+		/** Contiene el id del timeout para el logout. */
+		let toid;
+
+		if(localStorage.getItem('userData') !== null) {
+			userData = JSON.parse(localStorage.getItem('userData'));
+			setAuthTimeout();
+		}
+
+		/**
+		 * Setea un timeout para desloguear automáticamente al usuario pasada
+		 * la duración de la sesión.
+		 */
+		function setAuthTimeout() {
+			if(toid) {
+				clearTimeout(toid);
+			}
+			// Calculamos el tiempo en segundos de duración de la sesión.
+			const time = userData.ttl - Math.floor(Date.now() / 1000);
+			toid = setTimeout(() => {
+				logout();
+			}, time * 1000);
+		}
 
 		return{
 			login: function(user){
 				return $http.post(API_SERVER + '/auth/login', user,{
 					credentials: 'include'
-				}).then(function(response) {
+				}).then(function(rta) {
 					// Vamos a verificar si la petición del login tuvo éxito o no.
-					let responsePayload = response.data;
-					if(responsePayload.status == 1) {
+					if(rta.data.status == 1) {
 						// Info correcta!
-						// Registro en las variables del servicio el token y los datos del usuario.
-						access_token = responsePayload.access_token;
+						//access_token = responsePayload.access_token;
+						userData = {
+							id: rta.data.data.id,
+							email: rta.data.data.email,
+							usuario: rta.data.data.usuario,
+							ttl: rta.data.data.ttl,
+						};
+						localStorage.setItem('userData', JSON.stringify(userData));
+						setAuthTimeout();
 						Firebase.login(user);
-						return responsePayload;
+						return rta;
 					} else {
 						// Info errónea
-						return responsePayload;
+						return rta;
 					}
 				}, function(err) {
 					if( err.data.status == 401)
@@ -57,9 +93,6 @@ angular.module('RedLight.services')
 			},
 			getUser: function(){
 				return $http.get(API_SERVER + '/auth/user',{
-					headers:{
-						Authorization: 'Bearer ' + access_token
-					},
 					credentials: 'include'
 				}).then(function(response) {
 					// Vamos a verificar si la petición de get user tuvo éxito o no.
@@ -69,25 +102,25 @@ angular.module('RedLight.services')
 			},
 			logout: function(){
 				return $http.get(API_SERVER + '/auth/logout',{
-					headers:{
-						Authorization: 'Bearer ' + access_token
-					}
-				}).then(function(response) {
+					credentials: 'include'
+				}).then(function(rta) {
 					// Vamos a verificar si la petición del login tuvo éxito o no.
-					access_token = null	
-					return response.data;
+					userData = {
+						id: null,
+						email: null,
+						usuario: null,
+						ttl: null,
+					};
+					localStorage.removeItem('userData');
+					return rta.data;
 				});
 			},
 			isLogged: function() {
-				if(access_token != null) {
-					return true;
-				} else {
-					return false;
-				}
+				return userData.id !== null;
 			},
-			getToken: function(){
+			/*getToken: function(){
 				return 'Bearer ' + access_token;
-			}
+			}*/
 
 		}
 	}
