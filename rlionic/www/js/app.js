@@ -1,6 +1,6 @@
 // defino el modulo ng-app
 angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services','ngCordova'])
-.run(function($ionicPlatform, $ionicPopup, $rootScope, $state, Auth) {
+.run(function($ionicPlatform, $ionicPopup, $rootScope, $state, Auth, $window) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -8,6 +8,33 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
     }
     if (window.StatusBar) {
 	  StatusBar.styleLightContent();
+	}
+	if(localStorage.getItem('sumarse') === null)
+	{
+		$ionicPopup.confirm({
+			title: 'Gracias por descargar</br> la aplicación',
+			template: 'Por favor sumate a nuestra petición del proyecto de ley para regular el trabajo sexual autónomo.</br> <b>El trabajo sexual es trabajo.</b></br><b>El trabajo sexual NO es igual a la trata de personas.</b></br> ',
+			buttons: [
+				{ 
+					text: 'Omitir',
+					onTap: function(e) {
+						return false;
+					}
+				},
+				{
+				text: '<b>Sumarme</b>',
+				type: 'button-positive',
+				onTap: function(e) {
+					return true;
+				}
+				}
+			]
+		}).then(function(rta) {
+			if(rta){
+				localStorage.setItem('sumarse', true);
+				$window.location.href = "http://chng.it/wkNVqZQW";
+			}
+		});
 	}
   });
 
@@ -25,6 +52,8 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			  template: 'Tenés que estar logueado para poder acceder a esta pantalla.'
         }).then(function() {
 			$state.go('tab.login');
+			// porque sino solo funcionaba una vez
+			$state.reload();
 		});
       }
 	}else if(toState.data != undefined && toState.data.requiresGuest == true)
@@ -44,6 +73,7 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 	$httpProvider.defaults.withCredentials = true;
 	$ionicConfigProvider.tabs.position("bottom");
 
+
   	$stateProvider
  	 .state('tab', {
 		url: '/tab',
@@ -59,6 +89,9 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 			templateUrl: 'templates/tab-posts.html',
 			controller: 'PostsCtrl'
 			}
+		},
+		data: {
+			requiresAuth: true
 		}
 	})
 
@@ -266,8 +299,8 @@ angular.module('RedLight', ['ionic', 'RedLight.controllers', 'RedLight.services'
 
 	;
 
-	// Si no encuentra la ruta lo lleva a posts
-	$urlRouterProvider.otherwise('/tab/posts');
+	// Si no encuentra la ruta lo llevo a login
+	$urlRouterProvider.otherwise('/tab/login');
 
 })
 
