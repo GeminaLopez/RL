@@ -11,9 +11,12 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="*"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="*"></script>
     
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -34,32 +37,31 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
-    <script src="js/controllers/PostsCtrl.js"></script>
-    <script src="js/controllers/PostsAmigosCtrl.js"></script>
-    <script src="js/controllers/PostsNuevoCtrl.js"></script>
-    <script src="js/controllers/ContactosCtrl.js"></script>
+    <!-- controllers-->
     <script src="js/controllers/ComentariosCtrl.js"></script>
     <script src="js/controllers/ComentariosNuevoCtrl.js"></script>
+    <script src="js/controllers/ContactosCtrl.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/MapaCtrl.js"></script>
+    <script src="js/controllers/MensajesChatCtrl.js"></script>
     <script src="js/controllers/MensajesCtrl.js"></script>
     <script src="js/controllers/MensajesNuevoCtrl.js"></script>
-    <script src="js/controllers/MensajesChatCtrl.js"></script>
-    <script src="js/controllers/LoginCtrl.js"></script>
     <script src="js/controllers/PerfilCtrl.js"></script>
     <script src="js/controllers/PerfilEditarCtrl.js"></script>
-    <script src="js/controllers/MapaCtrl.js"></script>
-    <script src="js/services/Chat.js"></script>
-    <script src="js/services/Firebase.js"></script>
-    <script src="js/services/Post.js"></script>
-    <script src="js/services/Comentario.js"></script>
-    <script src="js/services/Ciudad.js"></script>
-    <script src="js/services/Genero.js"></script>
+    <script src="js/controllers/PostsAmigosCtrl.js"></script>
+    <script src="js/controllers/PostsCtrl.js"></script>
+    <script src="js/controllers/PostsNuevoCtrl.js"></script>
+    <!-- services-->
     <script src="js/services/Auth.js"></script>
+    <script src="js/services/Chat.js"></script>
+    <script src="js/services/Ciudad.js"></script>
+    <script src="js/services/Comentario.js"></script>
+    <script src="js/services/Firebase.js"></script>
+    <script src="js/services/Genero.js"></script>
+    <script src="js/services/Post.js"></script>    
     <script src="js/services/Usuario.js"></script> 
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+    
   </head>
   <body ng-app="RedLight">
     <!--

@@ -27,8 +27,11 @@ angular.module('RedLight.services')
 
 		return {
 			login: function(user) {
-                auth.signInWithEmailAndPassword(user.email, user.password).catch({
+                auth.signInWithEmailAndPassword(user.email, user.password)
+                .catch(error => {
                     // error
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
                 });
                 auth.onAuthStateChanged(user => {
                     if(user) {
@@ -39,6 +42,21 @@ angular.module('RedLight.services')
                         // No está logueado.
                     }
                 });
+            },
+
+            logout: function() {
+                auth.signOut().then(() => {
+                // Sign-out successful.
+                }).catch((error) => {
+                // An error happened.
+                });
+            },
+
+            getCurrentUser: function() {
+                var user = auth.currentUser;
+                if(user) {
+                    return user
+                }
             },
 
             registro: function(email,password){
@@ -55,20 +73,6 @@ angular.module('RedLight.services')
                     console.log(error);
                 });
             },
-
-            /*getCollection: function(url) {
-                const ref = store.collection(url);
-
-                return ref.orderBy('fecha').onSnapshot(snapshot => {
-                    const salida = [];
-
-                    snapshot.forEach(doc => {
-                        salida.push(doc.data());
-                    });
-
-                    return salida;
-                });
-            },*/
 
             getCollection: function(url, callback) {
                 const ref = store.collection(url);

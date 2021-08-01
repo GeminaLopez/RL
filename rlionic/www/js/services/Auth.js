@@ -112,11 +112,13 @@ angular.module('RedLight.services')
 						ttl: null,
 					};
 					localStorage.removeItem('userData');
+					Firebase.logout();
 					return rta.data;
 				});
 			},
 			isLogged: function() {
-				return userData.id !== null;
+				console.log(Firebase.getCurrentUser());
+				return userData.id !== null ;
 			},
 			/*getToken: function(){
 				return 'Bearer ' + access_token;

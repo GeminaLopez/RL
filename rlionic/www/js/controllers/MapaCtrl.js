@@ -28,16 +28,19 @@ angular.module('RedLight.controllers')
 				var lat  = position.coords.latitude;
 				var long = position.coords.longitude;
 				 
-				//posiciono default buenos aires
-				var mymap = L.map('map').setView([-34.6131500, -58.3772300], 13);        
-				 
-				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-					maxZoom: 18,
-					id: 'mapbox.streets',
-					accessToken: 'pk.eyJ1IjoiZ2VtaW5hMTg2IiwiYSI6ImNrMzF1OHU2cDA1OXozaGxlejJiYm55djUifQ.Nq-yz-pQCKWyy8m0m4D3Tg'
-				}).addTo(mymap);
+				//posiciono default buenos aires			 
+				var map = L.map('map').setView([-34.6131500, -58.3772300], 13);
 
-				var marker = L.marker([lat, long]).addTo(mymap);
+				L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+					attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+					maxZoom: 18,
+					id: 'mapbox/streets-v11',
+					tileSize: 512,
+					zoomOffset: -1,
+					accessToken: 'pk.eyJ1IjoiZ2VtaW5hMTg2IiwiYSI6ImNrMzF1OHU2cDA1OXozaGxlejJiYm55djUifQ.Nq-yz-pQCKWyy8m0m4D3Tg'
+				}).addTo(map);
+
+				var marker = L.marker([lat, long]).addTo(map);
 
 				marker.bindPopup("<b>Tu estás aquí</b>");
 
@@ -49,7 +52,7 @@ angular.module('RedLight.controllers')
 							fillColor: '#f03',
 							fillOpacity: 0.5,
 							radius: 500
-						}).addTo(mymap);
+						}).addTo(map);
 					}
 				}
 
