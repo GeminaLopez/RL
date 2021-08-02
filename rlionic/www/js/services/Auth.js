@@ -76,7 +76,6 @@ angular.module('RedLight.services')
 				return $http.post(API_SERVER + '/usuarios', user,{
 					credentials: 'include'
 				}).then(function(response) {
-					console.log(response)
 					// Vamos a verificar si la petición del login tuvo éxito o no.
 					let responsePayload = response.data;
 					if(responsePayload.status == 1) {
@@ -117,13 +116,9 @@ angular.module('RedLight.services')
 				});
 			},
 			isLogged: function() {
-				console.log(Firebase.getCurrentUser());
-				return userData.id !== null ;
+				let user = Firebase.getCurrentUser();
+				return userData.id !== null || user.email !== null ;
 			},
-			/*getToken: function(){
-				return 'Bearer ' + access_token;
-			}*/
-
 		}
 	}
 ]);

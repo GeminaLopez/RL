@@ -37,7 +37,6 @@ angular.module('RedLight.services')
                     if(user) {
                         // Hay user! :D
                         userData.email = user.email;
-                        console.log("firebase Auth: ", userData);
                     } else {
                         // No está logueado.
                     }
@@ -46,9 +45,9 @@ angular.module('RedLight.services')
 
             logout: function() {
                 auth.signOut().then(() => {
-                // Sign-out successful.
+                    // Sign-out successful.
                 }).catch((error) => {
-                // An error happened.
+                    console.log(error)
                 });
             },
 

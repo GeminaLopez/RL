@@ -65,7 +65,7 @@ class PostsController extends Controller
                 where p.deleted_at IS NULL 
                 and (p.id_user in (select id_user_2 from contactos where id_user_1 = ?)
                 or p.id_user in (select id_user_1 from contactos where id_user_2 = ?)) 
-                order by p.created_at DESC";
+                order by p.created_at ASC";
         
         $stmt = DB::getPdo()->prepare($sql);
         $stmt->execute([$userId,$userId]);
